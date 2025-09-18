@@ -4,13 +4,11 @@
 
 A comprehensive family management system designed to streamline household coordination, task management, and communication. The project centers around a tablet-based dashboard but also includes supporting apps and a Firebase backend.
 
----
 
 ## Project Vision
 
 The Staccato dashboard provides a central hub for family life. Installed as a kiosk in a shared space (like a kitchen or living room), it helps families stay organized, connected, and in sync. Supporting mobile and web apps extend functionality to parents and ensure management is possible anywhere.
 
----
 
 ## Core Components
 
@@ -45,7 +43,6 @@ The Staccato dashboard provides a central hub for family life. Installed as a ki
   - Family-level access controls  
   - Secure media storage for photos  
 
----
 
 ## Technical Architecture
 
@@ -64,7 +61,6 @@ The Staccato dashboard provides a central hub for family life. Installed as a ki
 
 See [Firebase Architecture](firebase-architecture.md) for details.
 
----
 
 ## Design Principles
 
@@ -77,7 +73,6 @@ The dashboard is guided by a family-first philosophy: simple, accessible, and re
 
 See [Design Principles](family-dashboard-design-principles.md) for details.
 
----
 
 ## Development Guidelines
 

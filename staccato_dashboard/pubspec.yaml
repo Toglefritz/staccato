@@ -1,0 +1,30 @@
+name: staccato_dashboard
+description: "A family management dashboard"
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  # Firebase dependencies
+  cloud_firestore: ^6.0.1
+  firebase_auth: ^6.0.2
+  firebase_core: ^4.1.0
+
+  # The Flutter SDK
+  flutter:
+    sdk: flutter
+  
+  # Local storage for simple caching
+  shared_preferences: ^2.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  # Lint rules for Dart and Flutter used internally at Very Good Ventures
+  very_good_analysis: ^9.0.0
+
+flutter:
+  uses-material-design: true

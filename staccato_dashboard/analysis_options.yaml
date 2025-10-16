@@ -15,6 +15,7 @@ linter:
     document_ignores: false
     prefer_int_literals: false
     no_default_cases: false
+    sort_pub_dependencies: false
 
 formatter:
   trailing_commas: preserve

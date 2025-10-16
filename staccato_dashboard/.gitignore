@@ -1,3 +1,5 @@
+# Ignore macOS Finder files globally
+**/.DS_Store
 # Miscellaneous
 *.class
 *.log

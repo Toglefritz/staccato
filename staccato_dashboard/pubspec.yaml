@@ -13,18 +13,26 @@ dependencies:
   firebase_auth: ^6.0.2
   firebase_core: ^4.1.0
 
-  # The Flutter SDK
+  # The Flutter SDK and localizations
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   
   # Local storage for simple caching
   shared_preferences: ^2.3.2
 
+  # Fonts
+  google_fonts: ^6.3.2
+
 dev_dependencies:
+  # Testing tools
   flutter_test:
     sdk: flutter
+
   # Lint rules for Dart and Flutter used internally at Very Good Ventures
   very_good_analysis: ^9.0.0
 
 flutter:
   uses-material-design: true
+  generate: true

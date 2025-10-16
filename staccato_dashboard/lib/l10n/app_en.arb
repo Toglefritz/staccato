@@ -1,0 +1,6 @@
+{
+  "appName": "Staccato",
+  "@appName": {
+    "description": "The name of this app"
+  }
+}

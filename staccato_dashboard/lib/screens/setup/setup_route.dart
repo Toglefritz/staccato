@@ -4,6 +4,7 @@ library;
 import 'package:flutter/material.dart';
 
 import '../../components/loaders/wave_loader.dart';
+import '../idle/idle_route.dart';
 
 // Parts
 part 'setup_controller.dart';

@@ -6,5 +6,5 @@ import 'staccato_dashboard_app.dart';
 /// This function handles all necessary initialization including Firebase and local storage setup before launching the
 /// UI.
 void main() async {
-  runApp(const FamilyDashboardApp());
+  runApp(const StaccatoDashboardApp());
 }

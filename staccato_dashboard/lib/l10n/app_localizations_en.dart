@@ -10,4 +10,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appName => 'Staccato';
+
+  @override
+  String get welcome => 'Welcome';
 }

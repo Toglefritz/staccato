@@ -2,5 +2,9 @@
   "appName": "Staccato",
   "@appName": {
     "description": "The name of this app"
+  },
+  "welcome": "Welcome",
+  "@welcome": {
+    "description": "The welcome message"
   }
 }

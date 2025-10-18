@@ -9,35 +9,23 @@ import 'idle_view.dart';
 ///
 /// Extends `State<IdleRoute>` to provide state management capabilities and serves as the bridge between the route and
 /// view components. Manages the animated background and the digital clock.
-class IdleController extends State<IdleRoute> with SingleTickerProviderStateMixin {
-  /// The animation controller for the background gradient.
-  late final AnimationController animationController;
-
-  /// The first color animation for the background gradient.
-  late final Animation<Color?> colorAnimation1;
-
-  /// The second color animation for the background gradient.
-  late final Animation<Color?> colorAnimation2;
-
+class IdleController extends State<IdleRoute> {
   /// A timer that updates the screen every second to refresh the clock.
   late final Timer timer;
 
   /// The current date and time, updated every second.
   late DateTime now;
 
-  /// Initializes the state for the idle screen.
-  ///
-  /// This method sets up the timer for the clock and initializes the animations for the background gradient.
   @override
   void initState() {
-    super.initState();
+    // Initialize clock timer
+    _initializeClockTimer();
 
-    // Initialize the background gradient animation.
-    _initializeAnimation();
+    super.initState();
   }
 
-  /// Initializes the background gradient animation.
-  void _initializeAnimation() {
+  /// Initializes the timer used for the clock displayed on this screen.
+  void _initializeClockTimer() {
     now = DateTime.now();
 
     // Tick the clock once per second.
@@ -46,52 +34,22 @@ class IdleController extends State<IdleRoute> with SingleTickerProviderStateMixi
         now = DateTime.now();
       });
     });
+  }
 
-    // Long-running controller that continuously loops.
-    animationController = AnimationController(
-      duration: const Duration(minutes: 3), // Slow, gentle shift
-      vsync: this,
-    )..repeat();
+  /// Called when any part of the idle screen is tapped.
+  void onTap() => _dismissIdleScreen();
 
-    // Color palette to travel through (loops back to the start).
-    final List<Color> palette = <Color>[
-      Colors.purple.shade800,
-      Colors.indigo.shade700,
-      Colors.blue.shade700,
-      Colors.cyan.shade700,
-      Colors.teal.shade700,
-      Colors.green.shade700,
-      Colors.lime.shade600,
-      Colors.amber.shade700,
-      Colors.orange.shade700,
-      Colors.purple.shade800, // close the loop
-    ];
+  // TODO(Toglefritz): listen for user identification or wake word events
 
-    // Helper to build a smooth looping sequence across the palette.
-    TweenSequence<Color?> buildSequence(List<Color> colors) {
-      final List<TweenSequenceItem<Color?>> items = <TweenSequenceItem<Color?>>[];
-      for (int i = 0; i < colors.length - 1; i++) {
-        items.add(
-          TweenSequenceItem<Color?>(
-            tween: ColorTween(begin: colors[i], end: colors[i + 1]),
-            weight: 1.0,
-          ),
-        );
-      }
-      return TweenSequence<Color?>(items);
-    }
-
-    // First color animates through the palette in order.
-    final TweenSequence<Color?> sequence1 = buildSequence(palette);
-
-    // Second color is phase-shifted by half the palette for a moving gradient.
-    final int half = (palette.length / 2).floor();
-    final List<Color> rotated =
-        <Color>[...palette.sublist(half), ...palette.sublist(0, half)];
-    final TweenSequence<Color?> sequence2 = buildSequence(rotated);
-
-    colorAnimation1 = sequence1.animate(animationController);
-    colorAnimation2 = sequence2.animate(animationController);
+  /// Resumes the normal activity of the Staccato dashboard app.
+  ///
+  /// This [IdleRoute] is presented when no interaction has occurred with the Staccato dashboard app for a period
+  /// of time. "Interaction" occurs under several conditions including when the user taps on the screen, when the
+  /// user identification module notifies the app of the presence of a user, or when a voice wake word is uttered
+  /// and detected by the system. If any of these interactions occur, this idle screen will be dismissed.
+  void _dismissIdleScreen() {
+    // Simply pop back to the previous screen.
+    Navigator.of(context).pop();
   }
 
   /// Builds the widget tree for the idle screen.
@@ -105,7 +63,7 @@ class IdleController extends State<IdleRoute> with SingleTickerProviderStateMixi
   /// This method cancels the timer and disposes the animation controller to prevent memory leaks.
   @override
   void dispose() {
-    animationController.dispose();
+    // Dismiss the clock timer
     timer.cancel();
 
     super.dispose();

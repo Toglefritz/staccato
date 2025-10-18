@@ -2,9 +2,11 @@
 /// base of the widget tree for this application.
 library;
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'l10n/app_localizations.dart';
+import 'screens/onboarding/onboarding_route.dart';
 import 'screens/setup/setup_route.dart';
 
 // Parts
@@ -24,7 +26,18 @@ class StaccatoDashboardApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       theme: _StaccatoAppTheme.lightThemeData,
       darkTheme: _StaccatoAppTheme.darkTheme,
-      home: const SetupRoute(),
+      home: Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (BuildContext context, AsyncSnapshot<User?> authStateSnapshot) {
+            if (authStateSnapshot.hasData) {
+              return const SetupRoute();
+            }
+            return const OnboardingRoute();
+          },
+        ),
+      ),
     );
   }
 }

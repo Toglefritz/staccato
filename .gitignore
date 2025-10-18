@@ -1,0 +1,3 @@
+staccato_dashboard/macos/Runner/GoogleService-Info.plist
+staccato_dashboard/ios/Runner/GoogleService-Info.plist
+staccato_dashboard/lib/firebase_options.dart

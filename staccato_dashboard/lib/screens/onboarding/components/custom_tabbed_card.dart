@@ -64,6 +64,7 @@ class CustomTabbedCard extends StatelessWidget {
                                   passwordController: controller.passwordController,
                                 ),
                                 onSignUp: controller.handleSignUp,
+                                onGoogleSignUp: controller.handleGoogleSignUp,
                                 showSubmitButton: false, // Hide button in form
                               ),
                             ),
@@ -77,6 +78,7 @@ class CustomTabbedCard extends StatelessWidget {
                                   passwordController: controller.passwordController,
                                 ),
                                 onSignIn: controller.handleSignIn,
+                                onGoogleSignIn: controller.handleGoogleSignIn,
                                 showSubmitButton: false, // Hide button in form
                               ),
                             ),

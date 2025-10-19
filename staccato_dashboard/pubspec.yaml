@@ -28,6 +28,9 @@ dependencies:
 
   # Fonts
   google_fonts: ^6.3.2
+  
+  # SVG support
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   # Testing tools
@@ -35,7 +38,7 @@ dev_dependencies:
     sdk: flutter
 
   # Lint rules for Dart and Flutter used internally at Very Good Ventures
-  very_good_analysis: ^9.0.0
+  very_good_analysis: ^10.0.0
 
 flutter:
   uses-material-design: true

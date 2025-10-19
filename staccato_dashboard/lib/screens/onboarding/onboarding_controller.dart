@@ -1,6 +1,11 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../services/authentication/authentication_service.dart';
+import '../../services/authentication/exceptions/firebase_auth_creation_exception.dart';
+import '../../services/authentication/exceptions/user_document_creation_exception.dart';
+import '../../services/authentication/models/auth_methods.dart';
 import 'onboarding_route.dart';
 import 'onboarding_view.dart';
 
@@ -59,12 +64,48 @@ class OnboardingController extends State<OnboardingRoute> with TickerProviderSta
   /// Handles sign up form submission.
   Future<void> handleSignUp() async {
     if (_signUpFormKey.currentState?.validate() ?? false) {
-      // TODO(Toglefritz): Implement sign up logic
-      // For now, just show a SnackBar
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Sign up functionality coming soon!')),
+      try {
+        await AuthenticationService.createUser(
+          method: AuthMethod.basicAuth,
+          emailAddress: _emailController.text.trim(),
+          password: _passwordController.text,
         );
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Account created successfully!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      } on FirebaseAuthCreationException {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Failed to create account. Please check your credentials and try again.'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } on UserDocumentCreationException {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Account created but failed to set up user profile. Please contact support.'),
+              backgroundColor: Colors.orange,
+            ),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('An unexpected error occurred: ${e.toString()}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
       }
     }
   }
@@ -72,11 +113,155 @@ class OnboardingController extends State<OnboardingRoute> with TickerProviderSta
   /// Handles sign in form submission.
   Future<void> handleSignIn() async {
     if (_signInFormKey.currentState?.validate() ?? false) {
-      // TODO(Toglefritz): Implement sign in logic
-      // For now, just show a SnackBar
+      try {
+        // Use Firebase Auth directly for basic email/password sign-in
+        final UserCredential credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text,
+        );
+
+        if (credential.user != null && mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Signed in successfully!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      } on FirebaseAuthException catch (e) {
+        if (mounted) {
+          String message;
+          switch (e.code) {
+            case 'user-not-found':
+              message = 'No user found with this email address.';
+              break;
+            case 'wrong-password':
+              message = 'Incorrect password.';
+              break;
+            case 'invalid-email':
+              message = 'Invalid email address.';
+              break;
+            case 'user-disabled':
+              message = 'This account has been disabled.';
+              break;
+            default:
+              message = 'Sign in failed: ${e.message}';
+          }
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(message),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Sign in failed: $e'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  /// Handles Google sign-in specifically.
+  Future<void> handleGoogleSignIn() async {
+    try {
+      final user = await AuthenticationService.signInWithGoogle();
+
+      if (user != null && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Signed in with Google successfully!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      } else if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Google sign in was cancelled.'),
+            backgroundColor: Colors.grey,
+          ),
+        );
+      }
+    } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Sign in functionality coming soon!')),
+          SnackBar(
+            content: Text('Google sign in failed: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  /// Handles Google sign-up specifically.
+  Future<void> handleGoogleSignUp() async {
+    try {
+      await AuthenticationService.createUser(method: AuthMethod.google);
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Account created with Google successfully!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } on FirebaseAuthCreationException {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to create account with Google. Please try again.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } on UserDocumentCreationException {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Account created but failed to set up user profile. Please contact support.'),
+            backgroundColor: Colors.orange,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Google sign up failed: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  /// Handles user sign out.
+  Future<void> handleSignOut() async {
+    try {
+      await AuthenticationService.signOut();
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Signed out successfully!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Sign out failed: $e'),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     }

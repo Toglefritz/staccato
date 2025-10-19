@@ -21,8 +21,8 @@ class SetupController extends State<SetupRoute> {
 
   /// Callback for when the app setup is complete.
   ///
-  /// Once this controller finishes initializing the app, this method is called to start the main application user
-  /// flow by navigating to the [IdleRoute].
+  /// Once this controller finishes initializing the app, this method is called to start the main application user flow
+  /// by navigating to the [IdleRoute].
   Future<void> _onSetupComplete() async {
     await Navigator.of(context).pushReplacement(
       MaterialPageRoute<void>(

@@ -17,8 +17,7 @@ part 'wave_loader_type.dart';
 class WaveLoader extends StatefulWidget {
   /// Creates a [WaveLoader] animation.
   ///
-  /// Either [color] or [itemBuilder] must be specified.
-  /// The [itemCount] must be at least 2.
+  /// Either [color] or [itemBuilder] must be specified. The [itemCount] must be at least 2.
   const WaveLoader({
     super.key,
     this.color,
@@ -29,7 +28,8 @@ class WaveLoader extends StatefulWidget {
     this.duration = const Duration(milliseconds: 1200),
     this.controller,
   }) : assert(
-         !(itemBuilder is IndexedWidgetBuilder && color is Color) && !(itemBuilder == null && color == null),
+         !(itemBuilder is IndexedWidgetBuilder && color is Color) &&
+             !(itemBuilder == null && color == null),
          'You should specify either an itemBuilder or a color',
        ),
        assert(itemCount >= 2, 'itemCount cannot be less than 2.');
@@ -66,7 +66,8 @@ class WaveLoader extends StatefulWidget {
 /// The state of the [WaveLoader] widget.
 ///
 /// Manages the animation controller and builds the wave animation.
-class _WaveLoaderState extends State<WaveLoader> with SingleTickerProviderStateMixin {
+class _WaveLoaderState extends State<WaveLoader>
+    with SingleTickerProviderStateMixin {
   /// The animation controller for handling the wave animation.
   late final AnimationController _controller;
 
@@ -75,7 +76,10 @@ class _WaveLoaderState extends State<WaveLoader> with SingleTickerProviderStateM
     super.initState();
 
     // If a controller is provided, use it. Otherwise, create a new controller.
-    _controller = (widget.controller ?? AnimationController(vsync: this, duration: widget.duration))..repeat();
+    _controller =
+        (widget.controller ??
+              AnimationController(vsync: this, duration: widget.duration))
+          ..repeat();
   }
 
   /// Returns the animation delay values based on the selected wave type.

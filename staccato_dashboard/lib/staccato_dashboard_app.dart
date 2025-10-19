@@ -1,5 +1,4 @@
-/// This library includes assets used for the [MaterialApp] widget at the
-/// base of the widget tree for this application.
+/// This library includes assets used for the [MaterialApp] widget at the base of the widget tree for this application.
 library;
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,12 +29,13 @@ class StaccatoDashboardApp extends StatelessWidget {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (BuildContext context, AsyncSnapshot<User?> authStateSnapshot) {
-            if (authStateSnapshot.hasData) {
-              return const SetupRoute();
-            }
-            return const OnboardingRoute();
-          },
+          builder:
+              (BuildContext context, AsyncSnapshot<User?> authStateSnapshot) {
+                if (authStateSnapshot.hasData) {
+                  return const SetupRoute();
+                }
+                return const OnboardingRoute();
+              },
         ),
       ),
     );

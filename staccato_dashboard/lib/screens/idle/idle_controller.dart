@@ -43,10 +43,10 @@ class IdleController extends State<IdleRoute> {
 
   /// Resumes the normal activity of the Staccato dashboard app.
   ///
-  /// This [IdleRoute] is presented when no interaction has occurred with the Staccato dashboard app for a period
-  /// of time. "Interaction" occurs under several conditions including when the user taps on the screen, when the
-  /// user identification module notifies the app of the presence of a user, or when a voice wake word is uttered
-  /// and detected by the system. If any of these interactions occur, this idle screen will be dismissed.
+  /// This [IdleRoute] is presented when no interaction has occurred with the Staccato dashboard app for a period of
+  /// time. "Interaction" occurs under several conditions including when the user taps on the screen, when the user
+  /// identification module notifies the app of the presence of a user, or when a voice wake word is uttered and
+  /// detected by the system. If any of these interactions occur, this idle screen will be dismissed.
   void _dismissIdleScreen() {
     // Simply pop back to the previous screen.
     Navigator.of(context).pop();

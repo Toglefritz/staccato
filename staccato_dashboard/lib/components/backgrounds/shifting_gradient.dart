@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 /// A gradient that slowly shifts colors over time.
 ///
-/// This widget is intended to be used as a decorative background element. It implements a liear gradient between
-/// color colors. Those two colors slowly shift over time.
+/// This widget is intended to be used as a decorative background element. It implements a liear gradient between color
+/// colors. Those two colors slowly shift over time.
 class ShiftingGradient extends StatefulWidget {
   /// Creates a new [ShiftingGradient] widget.
   const ShiftingGradient({
@@ -15,7 +15,8 @@ class ShiftingGradient extends StatefulWidget {
 }
 
 /// The state for the [ShiftingGradient] widget.
-class _ShiftingGradientState extends State<ShiftingGradient> with SingleTickerProviderStateMixin {
+class _ShiftingGradientState extends State<ShiftingGradient>
+    with SingleTickerProviderStateMixin {
   /// The animation controller for the background gradient.
   late final AnimationController animationController;
 
@@ -58,7 +59,8 @@ class _ShiftingGradientState extends State<ShiftingGradient> with SingleTickerPr
 
     // Helper to build a smooth looping sequence across the palette.
     TweenSequence<Color?> buildSequence(List<Color> colors) {
-      final List<TweenSequenceItem<Color?>> items = <TweenSequenceItem<Color?>>[];
+      final List<TweenSequenceItem<Color?>> items =
+          <TweenSequenceItem<Color?>>[];
       for (int i = 0; i < colors.length - 1; i++) {
         items.add(
           TweenSequenceItem<Color?>(
@@ -75,7 +77,10 @@ class _ShiftingGradientState extends State<ShiftingGradient> with SingleTickerPr
 
     // Second color is phase-shifted by half the palette for a moving gradient.
     final int half = (palette.length / 2).floor();
-    final List<Color> rotated = <Color>[...palette.sublist(half), ...palette.sublist(0, half)];
+    final List<Color> rotated = <Color>[
+      ...palette.sublist(half),
+      ...palette.sublist(0, half),
+    ];
     final TweenSequence<Color?> sequence2 = buildSequence(rotated);
 
     colorAnimation1 = sequence1.animate(animationController);

@@ -2,8 +2,8 @@ part of 'wave_loader.dart';
 
 /// A custom tween that applies a delay to the interpolation of an animation.
 ///
-/// This class extends [Tween] and modifies the interpolation function to introduce a sinusoidal delay effect. The
-/// delay shifts the animation phase, causing a smooth easing effect rather than a linear interpolation.
+/// This class extends [Tween] and modifies the interpolation function to introduce a sinusoidal delay effect. The delay
+/// shifts the animation phase, causing a smooth easing effect rather than a linear interpolation.
 ///
 /// **Note:** The `delay` value should be in the range `[0, 1]`, where `0` means no delay, and `1` means a full phase
 /// shift in the sine wave.

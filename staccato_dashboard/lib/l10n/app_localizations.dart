@@ -94,17 +94,95 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
-  /// The name of this app
+  /// No description provided for @appName.
   ///
   /// In en, this message translates to:
   /// **'Staccato'**
   String get appName;
 
-  /// The welcome message
+  /// No description provided for @createAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get createAccount;
+
+  /// No description provided for @fullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get fullName;
+
+  /// No description provided for @fullNameRequiredError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your full name.'**
+  String get fullNameRequiredError;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @emailRequiredError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter an email address.'**
+  String get emailRequiredError;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @emailInvalidError.
+  ///
+  /// In en, this message translates to:
+  /// **'This is not a valid email address.'**
+  String get emailInvalidError;
+
+  /// No description provided for @passwordLengthError.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password should have at least six characters.'**
+  String get passwordLengthError;
+
+  /// No description provided for @passwordRequiredError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a password, please.'**
+  String get passwordRequiredError;
+
+  /// No description provided for @newAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'New Account'**
+  String get newAccount;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @submit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get submit;
+
+  /// No description provided for @welcome.
   ///
   /// In en, this message translates to:
   /// **'Welcome'**
   String get welcome;
+
+  /// No description provided for @welcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome Back'**
+  String get welcomeBack;
 }
 
 class _AppLocalizationsDelegate

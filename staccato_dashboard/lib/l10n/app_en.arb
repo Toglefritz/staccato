@@ -1,10 +1,17 @@
 {
   "appName": "Staccato",
-  "@appName": {
-    "description": "The name of this app"
-  },
+  "createAccount": "Create Account",
+  "fullName": "Full Name",
+  "fullNameRequiredError": "Enter your full name.",
+  "email": "Email",
+  "emailRequiredError": "Please enter an email address.",
+  "password": "Password",
+  "emailInvalidError": "This is not a valid email address.",
+  "passwordLengthError": "Your password should have at least six characters.",
+  "passwordRequiredError": "Enter a password, please.",
+  "newAccount": "New Account",
+  "login": "Login",
+  "submit": "Submit",
   "welcome": "Welcome",
-  "@welcome": {
-    "description": "The welcome message"
-  }
+  "welcomeBack": "Welcome Back"
 }

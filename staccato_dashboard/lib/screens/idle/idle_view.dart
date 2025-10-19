@@ -17,8 +17,8 @@ class IdleView extends StatelessWidget {
 
   /// Builds the widget tree for the idle view.
   ///
-  /// This method constructs the UI, including the animated gradient background and the digital clock, using state
-  /// from the [state].
+  /// This method constructs the UI, including the animated gradient background and the digital clock, using state from
+  /// the [state].
   @override
   Widget build(BuildContext context) {
     /// The hour value (12-hour time) for the current time, with a leading zero.
@@ -62,7 +62,8 @@ class IdleView extends StatelessWidget {
                           hour,
                           style: GoogleFonts.robotoFlex(
                             textStyle: TextStyle(
-                              fontSize: MediaQuery.of(context).size.height * 0.4,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.4,
                               fontWeight: FontWeight.w900,
                               color: Colors.white70,
                             ),
@@ -81,7 +82,8 @@ class IdleView extends StatelessWidget {
                           minute,
                           style: GoogleFonts.robotoFlex(
                             textStyle: TextStyle(
-                              fontSize: MediaQuery.of(context).size.height * 0.25,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.25,
                               fontWeight: FontWeight.bold,
                               color: Colors.white70,
                             ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 /// A gradient that slowly shifts colors over time.
@@ -32,16 +34,18 @@ class _ShiftingGradientState extends State<ShiftingGradient>
     super.initState();
 
     // Initialize the background gradient animation.
-    _initializeAnimation();
+    unawaited(_initializeAnimation());
   }
 
   /// Initializes the background gradient animation.
-  void _initializeAnimation() {
+  Future<void> _initializeAnimation() async {
     // Long-running controller that continuously loops.
     animationController = AnimationController(
       duration: const Duration(minutes: 3), // Slow, gentle shift
       vsync: this,
-    )..repeat();
+    );
+
+    await animationController.repeat();
 
     // Color palette to travel through (loops back to the start).
     final List<Color> palette = <Color>[

@@ -21,32 +21,37 @@ class _StaccatoAppTheme {
   );
 
   /// Theme data for input fields.
-  static final InputDecorationTheme _inputDecorationTheme = InputDecorationTheme(
-    filled: true,
-    fillColor: Colors.white,
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-      borderSide: BorderSide.none,
-    ),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-      borderSide: BorderSide.none,
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-      borderSide: const BorderSide(color: _primarySwatch, width: 2),
-    ),
-    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-    hintStyle: TextStyle(color: _textColor.withValues(alpha: 0.6)),
-    labelStyle: const TextStyle(color: _textColor),
-  );
+  static final InputDecorationTheme _inputDecorationTheme =
+      InputDecorationTheme(
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: _primarySwatch, width: 2),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
+        ),
+        hintStyle: TextStyle(color: _textColor.withValues(alpha: 0.6)),
+        labelStyle: const TextStyle(color: _textColor),
+      );
 
   /// Theme data for elevated buttons.
-  static final ElevatedButtonThemeData _elevatedButtonTheme = ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      elevation: 2,
-    ),
-  );
+  static final ElevatedButtonThemeData _elevatedButtonTheme =
+      ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          elevation: 2,
+        ),
+      );
 
   /// The light theme for the dashboard app.
   static ThemeData lightThemeData = ThemeData(

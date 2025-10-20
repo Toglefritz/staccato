@@ -72,7 +72,10 @@ class SignUpForm extends StatelessWidget {
                 controller: formModel.nameController,
                 decoration: InputDecoration(
                   labelText: context.l10n.fullName,
-                  prefixIcon: const Icon(Icons.person, color: Color(0xFF212121)),
+                  prefixIcon: const Icon(
+                    Icons.person,
+                    color: Color(0xFF212121),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -148,7 +151,10 @@ class SignUpForm extends StatelessWidget {
                 ),
                 child: Text(
                   context.l10n.submit,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),

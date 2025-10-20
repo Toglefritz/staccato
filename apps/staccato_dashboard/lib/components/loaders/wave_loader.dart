@@ -1,5 +1,6 @@
 library;
 
+import 'dart:async';
 import 'dart:math' as math show pi, sin;
 
 import 'package:flutter/widgets.dart';
@@ -77,9 +78,10 @@ class _WaveLoaderState extends State<WaveLoader>
 
     // If a controller is provided, use it. Otherwise, create a new controller.
     _controller =
-        (widget.controller ??
-              AnimationController(vsync: this, duration: widget.duration))
-          ..repeat();
+        widget.controller ??
+        AnimationController(vsync: this, duration: widget.duration);
+
+    unawaited(_controller.repeat());
   }
 
   /// Returns the animation delay values based on the selected wave type.

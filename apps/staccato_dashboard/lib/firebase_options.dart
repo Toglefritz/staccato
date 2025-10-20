@@ -11,7 +11,7 @@ import 'package:flutter/foundation.dart'
 /// import 'firebase_options.dart';
 /// // ...
 /// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
+/// options: DefaultFirebaseOptions.currentPlatform,
 /// );
 /// ```
 class DefaultFirebaseOptions {
@@ -55,7 +55,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '324562075620',
     projectId: 'staccato-fd124',
     storageBucket: 'staccato-fd124.firebasestorage.app',
-    iosClientId: '324562075620-di4u51s4kjdb8ukfp547je5iv8443bu8.apps.googleusercontent.com',
+    iosClientId:
+        '324562075620-di4u51s4kjdb8ukfp547je5iv8443bu8.apps.googleusercontent.com',
     iosBundleId: 'com.splendidendeavors.staccatoDashboard',
   );
 
@@ -65,8 +66,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '324562075620',
     projectId: 'staccato-fd124',
     storageBucket: 'staccato-fd124.firebasestorage.app',
-    iosClientId: '324562075620-di4u51s4kjdb8ukfp547je5iv8443bu8.apps.googleusercontent.com',
+    iosClientId:
+        '324562075620-di4u51s4kjdb8ukfp547je5iv8443bu8.apps.googleusercontent.com',
     iosBundleId: 'com.splendidendeavors.staccatoDashboard',
   );
-
 }

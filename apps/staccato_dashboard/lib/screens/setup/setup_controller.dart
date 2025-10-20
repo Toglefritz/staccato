@@ -5,7 +5,7 @@ class SetupController extends State<SetupRoute> {
   @override
   void initState() {
     // Start the app setup process.
-    _performSetup();
+    unawaited(_performSetup());
 
     super.initState();
   }

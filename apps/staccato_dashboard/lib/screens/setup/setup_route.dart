@@ -1,6 +1,8 @@
 /// Library for the [SetupRoute] with components and models used in the screen.
 library;
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../components/loaders/wave_loader.dart';

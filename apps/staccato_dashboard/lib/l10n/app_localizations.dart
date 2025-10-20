@@ -9,57 +9,50 @@ import 'app_localizations_en.dart';
 
 // ignore_for_file: type=lint
 
-/// Callers can lookup localized strings with an instance of AppLocalizations
-/// returned by `AppLocalizations.of(context)`.
+/// Callers can lookup localized strings with an instance of AppLocalizations returned by
+/// `AppLocalizations.of(context)`.
 ///
-/// Applications need to include `AppLocalizations.delegate()` in their app's
-/// `localizationDelegates` list, and the locales they support in the app's
-/// `supportedLocales` list. For example:
+/// Applications need to include `AppLocalizations.delegate()` in their app's `localizationDelegates` list, and the
+/// locales they support in the app's `supportedLocales` list. For example:
 ///
 /// ```dart
 /// import 'l10n/app_localizations.dart';
 ///
 /// return MaterialApp(
-///   localizationsDelegates: AppLocalizations.localizationsDelegates,
-///   supportedLocales: AppLocalizations.supportedLocales,
-///   home: MyApplicationHome(),
+/// localizationsDelegates: AppLocalizations.localizationsDelegates,
+/// supportedLocales: AppLocalizations.supportedLocales,
+/// home: MyApplicationHome(),
 /// );
 /// ```
 ///
 /// ## Update pubspec.yaml
 ///
-/// Please make sure to update your pubspec.yaml to include the following
-/// packages:
+/// Please make sure to update your pubspec.yaml to include the following packages:
 ///
 /// ```yaml
 /// dependencies:
-///   # Internationalization support.
-///   flutter_localizations:
-///     sdk: flutter
-///   intl: any # Use the pinned version from flutter_localizations
+/// # Internationalization support.
+/// flutter_localizations:
+/// sdk: flutter
+/// intl: any # Use the pinned version from flutter_localizations
 ///
-///   # Rest of dependencies
+/// # Rest of dependencies
 /// ```
 ///
 /// ## iOS Applications
 ///
-/// iOS applications define key application metadata, including supported
-/// locales, in an Info.plist file that is built into the application bundle.
-/// To configure the locales supported by your app, you’ll need to edit this
-/// file.
+/// iOS applications define key application metadata, including supported locales, in an Info.plist file that is built
+/// into the application bundle. To configure the locales supported by your app, you’ll need to edit this file.
 ///
-/// First, open your project’s ios/Runner.xcworkspace Xcode workspace file.
-/// Then, in the Project Navigator, open the Info.plist file under the Runner
-/// project’s Runner folder.
+/// First, open your project’s ios/Runner.xcworkspace Xcode workspace file. Then, in the Project Navigator, open the
+/// Info.plist file under the Runner project’s Runner folder.
 ///
-/// Next, select the Information Property List item, select Add Item from the
-/// Editor menu, then select Localizations from the pop-up menu.
+/// Next, select the Information Property List item, select Add Item from the Editor menu, then select Localizations
+/// from the pop-up menu.
 ///
-/// Select and expand the newly-created Localizations item then, for each
-/// locale your application supports, add a new item and select the locale
-/// you wish to add from the pop-up menu in the Value field. This list should
-/// be consistent with the languages listed in the AppLocalizations.supportedLocales
-/// property.
+/// Select and expand the newly-created Localizations item then, for each locale your application supports, add a new
+/// item and select the locale you wish to add from the pop-up menu in the Value field. This list should be consistent
+/// with the languages listed in the AppLocalizations.supportedLocales property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
     : localeName = intl.Intl.canonicalizedLocale(locale.toString());
@@ -73,16 +66,14 @@ abstract class AppLocalizations {
   static const LocalizationsDelegate<AppLocalizations> delegate =
       _AppLocalizationsDelegate();
 
-  /// A list of this localizations delegate along with the default localizations
-  /// delegates.
+  /// A list of this localizations delegate along with the default localizations delegates.
   ///
   /// Returns a list of localizations delegates containing this delegate along with
-  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
-  /// and GlobalWidgetsLocalizations.delegate.
+  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate, and
+  /// GlobalWidgetsLocalizations.delegate.
   ///
-  /// Additional delegates can be added by appending to this list in
-  /// MaterialApp. This list does not have to be used at all if a custom list
-  /// of delegates is preferred or required.
+  /// Additional delegates can be added by appending to this list in MaterialApp. This list does not have to be used at
+  /// all if a custom list of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
         delegate,
@@ -96,92 +87,77 @@ abstract class AppLocalizations {
 
   /// No description provided for @appName.
   ///
-  /// In en, this message translates to:
-  /// **'Staccato'**
+  /// In en, this message translates to: **'Staccato'**
   String get appName;
 
   /// No description provided for @createAccount.
   ///
-  /// In en, this message translates to:
-  /// **'Create Account'**
+  /// In en, this message translates to: **'Create Account'**
   String get createAccount;
 
   /// No description provided for @fullName.
   ///
-  /// In en, this message translates to:
-  /// **'Full Name'**
+  /// In en, this message translates to: **'Full Name'**
   String get fullName;
 
   /// No description provided for @fullNameRequiredError.
   ///
-  /// In en, this message translates to:
-  /// **'Enter your full name.'**
+  /// In en, this message translates to: **'Enter your full name.'**
   String get fullNameRequiredError;
 
   /// No description provided for @email.
   ///
-  /// In en, this message translates to:
-  /// **'Email'**
+  /// In en, this message translates to: **'Email'**
   String get email;
 
   /// No description provided for @emailRequiredError.
   ///
-  /// In en, this message translates to:
-  /// **'Please enter an email address.'**
+  /// In en, this message translates to: **'Please enter an email address.'**
   String get emailRequiredError;
 
   /// No description provided for @password.
   ///
-  /// In en, this message translates to:
-  /// **'Password'**
+  /// In en, this message translates to: **'Password'**
   String get password;
 
   /// No description provided for @emailInvalidError.
   ///
-  /// In en, this message translates to:
-  /// **'This is not a valid email address.'**
+  /// In en, this message translates to: **'This is not a valid email address.'**
   String get emailInvalidError;
 
   /// No description provided for @passwordLengthError.
   ///
-  /// In en, this message translates to:
-  /// **'Your password should have at least six characters.'**
+  /// In en, this message translates to: **'Your password should have at least six characters.'**
   String get passwordLengthError;
 
   /// No description provided for @passwordRequiredError.
   ///
-  /// In en, this message translates to:
-  /// **'Enter a password, please.'**
+  /// In en, this message translates to: **'Enter a password, please.'**
   String get passwordRequiredError;
 
   /// No description provided for @newAccount.
   ///
-  /// In en, this message translates to:
-  /// **'New Account'**
+  /// In en, this message translates to: **'New Account'**
   String get newAccount;
 
   /// No description provided for @login.
   ///
-  /// In en, this message translates to:
-  /// **'Login'**
+  /// In en, this message translates to: **'Login'**
   String get login;
 
   /// No description provided for @submit.
   ///
-  /// In en, this message translates to:
-  /// **'Submit'**
+  /// In en, this message translates to: **'Submit'**
   String get submit;
 
   /// No description provided for @welcome.
   ///
-  /// In en, this message translates to:
-  /// **'Welcome'**
+  /// In en, this message translates to: **'Welcome'**
   String get welcome;
 
   /// No description provided for @welcomeBack.
   ///
-  /// In en, this message translates to:
-  /// **'Welcome Back'**
+  /// In en, this message translates to: **'Welcome Back'**
   String get welcomeBack;
 }
 

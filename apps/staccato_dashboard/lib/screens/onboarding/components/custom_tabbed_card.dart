@@ -61,7 +61,8 @@ class CustomTabbedCard extends StatelessWidget {
                                 formModel: SignUpFormModel(
                                   nameController: controller.nameController,
                                   emailController: controller.emailController,
-                                  passwordController: controller.passwordController,
+                                  passwordController:
+                                      controller.passwordController,
                                 ),
                                 onSignUp: controller.handleSignUp,
                                 onGoogleSignUp: controller.handleGoogleSignUp,
@@ -75,7 +76,8 @@ class CustomTabbedCard extends StatelessWidget {
                                 signInFormKey: controller.signInFormKey,
                                 formModel: SignInFormModel(
                                   emailController: controller.emailController,
-                                  passwordController: controller.passwordController,
+                                  passwordController:
+                                      controller.passwordController,
                                 ),
                                 onSignIn: controller.handleSignIn,
                                 onGoogleSignIn: controller.handleGoogleSignIn,
@@ -92,18 +94,27 @@ class CustomTabbedCard extends StatelessWidget {
                         right: Insets.large,
                         bottom: 60, // Above the tabs
                         child: ElevatedButton(
-                          onPressed: currentIndex == 0 ? controller.handleSignUp : controller.handleSignIn,
+                          onPressed: currentIndex == 0
+                              ? controller.handleSignUp
+                              : controller.handleSignIn,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).colorScheme.primary,
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.primary,
                             foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: Insets.small),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: Insets.small,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
                           child: Text(
                             context.l10n.submit,
-                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -131,7 +142,9 @@ class CustomTabbedCard extends StatelessWidget {
                           isSelected: currentIndex == 0,
                           onTap: () => controller.tabController.animateTo(0),
                           selectedColor: Colors.grey[300]!,
-                          unselectedColor: Colors.grey[300]!.withValues(alpha: 0.6),
+                          unselectedColor: Colors.grey[300]!.withValues(
+                            alpha: 0.6,
+                          ),
                         ),
                       ),
                       const SizedBox(width: gapWidth),
@@ -142,7 +155,9 @@ class CustomTabbedCard extends StatelessWidget {
                           isSelected: currentIndex == 1,
                           onTap: () => controller.tabController.animateTo(1),
                           selectedColor: Colors.grey[300]!,
-                          unselectedColor: Colors.grey[300]!.withValues(alpha: 0.6),
+                          unselectedColor: Colors.grey[300]!.withValues(
+                            alpha: 0.6,
+                          ),
                         ),
                       ),
                     ],

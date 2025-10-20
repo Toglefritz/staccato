@@ -13,7 +13,8 @@ import 'onboarding_view.dart';
 ///
 /// Extends `State<OnboardingRoute>` to provide state management capabilities and serves as the bridge between the route
 /// and view components. Manages the authentication interface with tab navigation between sign up and sign in.
-class OnboardingController extends State<OnboardingRoute> with TickerProviderStateMixin {
+class OnboardingController extends State<OnboardingRoute>
+    with TickerProviderStateMixin {
   /// Tab controller for managing authentication tabs.
   late TabController _tabController;
 
@@ -83,7 +84,9 @@ class OnboardingController extends State<OnboardingRoute> with TickerProviderSta
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Failed to create account. Please check your credentials and try again.'),
+              content: Text(
+                'Failed to create account. Please check your credentials and try again.',
+              ),
               backgroundColor: Colors.red,
             ),
           );
@@ -92,7 +95,9 @@ class OnboardingController extends State<OnboardingRoute> with TickerProviderSta
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Account created but failed to set up user profile. Please contact support.'),
+              content: Text(
+                'Account created but failed to set up user profile. Please contact support.',
+              ),
               backgroundColor: Colors.orange,
             ),
           );
@@ -101,7 +106,7 @@ class OnboardingController extends State<OnboardingRoute> with TickerProviderSta
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('An unexpected error occurred: ${e.toString()}'),
+              content: Text('An unexpected error occurred: $e'),
               backgroundColor: Colors.red,
             ),
           );
@@ -115,10 +120,11 @@ class OnboardingController extends State<OnboardingRoute> with TickerProviderSta
     if (_signInFormKey.currentState?.validate() ?? false) {
       try {
         // Use Firebase Auth directly for basic email/password sign-in
-        final UserCredential credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text,
-        );
+        final UserCredential credential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+              email: _emailController.text.trim(),
+              password: _passwordController.text,
+            );
 
         if (credential.user != null && mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -134,16 +140,12 @@ class OnboardingController extends State<OnboardingRoute> with TickerProviderSta
           switch (e.code) {
             case 'user-not-found':
               message = 'No user found with this email address.';
-              break;
             case 'wrong-password':
               message = 'Incorrect password.';
-              break;
             case 'invalid-email':
               message = 'Invalid email address.';
-              break;
             case 'user-disabled':
               message = 'This account has been disabled.';
-              break;
             default:
               message = 'Sign in failed: ${e.message}';
           }
@@ -216,7 +218,9 @@ class OnboardingController extends State<OnboardingRoute> with TickerProviderSta
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Failed to create account with Google. Please try again.'),
+            content: Text(
+              'Failed to create account with Google. Please try again.',
+            ),
             backgroundColor: Colors.red,
           ),
         );
@@ -225,7 +229,9 @@ class OnboardingController extends State<OnboardingRoute> with TickerProviderSta
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Account created but failed to set up user profile. Please contact support.'),
+            content: Text(
+              'Account created but failed to set up user profile. Please contact support.',
+            ),
             backgroundColor: Colors.orange,
           ),
         );

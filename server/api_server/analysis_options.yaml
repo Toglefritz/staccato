@@ -1,1 +1,36 @@
-include: package:dart_frog_lint/recommended.yaml
+include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - build/**
+    - .dart_tool/**
+    - .dart_frog/**
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+
+linter:
+  rules:
+    # Enforce documentation
+    public_member_api_docs: true
+    
+    # Enforce strong typing
+    avoid_dynamic_calls: true
+    avoid_type_to_string: true
+    
+    # Enforce consistent style
+    prefer_single_quotes: true
+    require_trailing_commas: true
+    
+    # Additional rules for server code
+    avoid_print: true
+    avoid_web_libraries_in_flutter: false
+    
+    # Dart Frog specific overrides
+    prefer_const_constructors: false
+
+    # Project style overrides
+    sort_constructors_first: false
+    lines_longer_than_80_chars: false
+    omit_local_variable_types: false

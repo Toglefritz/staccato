@@ -1,5 +1,5 @@
-name: api_server
-description: A new Dart Frog application
+name: staccato_api_server
+description: REST API server for the Staccato family management system
 version: 1.0.0+1
 publish_to: none
 
@@ -7,9 +7,17 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  dart_frog: ^1.1.0
+  crypto: ^3.0.3
+  dart_frog: ^1.1.0  
+  dotenv: ^4.2.0
+  firebase_admin: ^0.3.0
+  http: ^1.1.0
+  logging: ^1.2.0
+  uuid: ^4.0.0
 
 dev_dependencies:
+  coverage: ^1.6.0
   dart_frog_lint: ^0.1.0
   mocktail: ^1.0.3
   test: ^1.25.5
+  very_good_analysis: ^5.1.0

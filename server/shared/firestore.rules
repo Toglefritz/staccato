@@ -1,0 +1,37 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users collection - users can only access their own data and family members
+    match /users/{userId} {
+      allow read, write: if request.auth != null && 
+        (request.auth.uid == userId || 
+         isAuthorizedFamilyMember(userId));
+    }
+    
+    // Family groups collection - only family members can access
+    match /families/{familyId} {
+      allow read, write: if request.auth != null && 
+        isFamilyMember(familyId);
+      
+      // Family members subcollection
+      match /members/{memberId} {
+        allow read, write: if request.auth != null && 
+          isFamilyMember(familyId);
+      }
+    }
+    
+    // Helper functions
+    function isAuthorizedFamilyMember(targetUserId) {
+      let userDoc = get(/databases/$(database)/documents/users/$(request.auth.uid));
+      let targetUserDoc = get(/databases/$(database)/documents/users/$(targetUserId));
+      return userDoc.data.familyId == targetUserDoc.data.familyId &&
+             userDoc.data.permissionLevel in ['primary', 'adult'];
+    }
+    
+    function isFamilyMember(familyId) {
+      let userDoc = get(/databases/$(database)/documents/users/$(request.auth.uid));
+      return userDoc.data.familyId == familyId;
+    }
+  }
+}

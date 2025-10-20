@@ -99,10 +99,15 @@ void main() {
       ///
       /// This test verifies that the isAdmin getter correctly identifies users with administrative privileges based on
       /// their permission level.
-      test('should return correct isAdmin value for different permission levels', () {
-        final User primaryUser = validUser.copyWith(permissionLevel: UserPermissionLevel.primary);
-        final User adultUser = validUser.copyWith(permissionLevel: UserPermissionLevel.adult);
-        final User childUser = validUser.copyWith(permissionLevel: UserPermissionLevel.child);
+      test(
+          'should return correct isAdmin value for different permission levels',
+          () {
+        final User primaryUser =
+            validUser.copyWith(permissionLevel: UserPermissionLevel.primary);
+        final User adultUser =
+            validUser.copyWith(permissionLevel: UserPermissionLevel.adult);
+        final User childUser =
+            validUser.copyWith(permissionLevel: UserPermissionLevel.child);
 
         expect(primaryUser.isAdmin, isTrue);
         expect(adultUser.isAdmin, isFalse);
@@ -113,10 +118,15 @@ void main() {
       ///
       /// This test verifies that the isAdult getter correctly identifies users with adult-level access based on their
       /// permission level.
-      test('should return correct isAdult value for different permission levels', () {
-        final User primaryUser = validUser.copyWith(permissionLevel: UserPermissionLevel.primary);
-        final User adultUser = validUser.copyWith(permissionLevel: UserPermissionLevel.adult);
-        final User childUser = validUser.copyWith(permissionLevel: UserPermissionLevel.child);
+      test(
+          'should return correct isAdult value for different permission levels',
+          () {
+        final User primaryUser =
+            validUser.copyWith(permissionLevel: UserPermissionLevel.primary);
+        final User adultUser =
+            validUser.copyWith(permissionLevel: UserPermissionLevel.adult);
+        final User childUser =
+            validUser.copyWith(permissionLevel: UserPermissionLevel.child);
 
         expect(primaryUser.isAdult, isTrue);
         expect(adultUser.isAdult, isTrue);
@@ -127,10 +137,15 @@ void main() {
       ///
       /// This test verifies that the canManageUsers getter correctly identifies users who can manage other family
       /// members based on their permission level.
-      test('should return correct canManageUsers value for different permission levels', () {
-        final User primaryUser = validUser.copyWith(permissionLevel: UserPermissionLevel.primary);
-        final User adultUser = validUser.copyWith(permissionLevel: UserPermissionLevel.adult);
-        final User childUser = validUser.copyWith(permissionLevel: UserPermissionLevel.child);
+      test(
+          'should return correct canManageUsers value for different permission levels',
+          () {
+        final User primaryUser =
+            validUser.copyWith(permissionLevel: UserPermissionLevel.primary);
+        final User adultUser =
+            validUser.copyWith(permissionLevel: UserPermissionLevel.adult);
+        final User childUser =
+            validUser.copyWith(permissionLevel: UserPermissionLevel.child);
 
         expect(primaryUser.canManageUsers, isTrue);
         expect(adultUser.canManageUsers, isFalse);
@@ -150,8 +165,14 @@ void main() {
         expect(user.displayName, equals('John Doe'));
         expect(user.familyId, equals('family_456'));
         expect(user.permissionLevel, equals(UserPermissionLevel.primary));
-        expect(user.createdAt, equals(DateTime.parse('2025-01-10T14:30:00.000Z')));
-        expect(user.updatedAt, equals(DateTime.parse('2025-01-10T15:00:00.000Z')));
+        expect(
+          user.createdAt,
+          equals(DateTime.parse('2025-01-10T14:30:00.000Z')),
+        );
+        expect(
+          user.updatedAt,
+          equals(DateTime.parse('2025-01-10T15:00:00.000Z')),
+        );
         expect(user.profileImageUrl, equals('https://example.com/profile.jpg'));
       });
 
@@ -175,7 +196,10 @@ void main() {
         expect(user.displayName, equals('Jane Smith'));
         expect(user.familyId, equals('family_789'));
         expect(user.permissionLevel, equals(UserPermissionLevel.adult));
-        expect(user.createdAt, equals(DateTime.parse('2025-01-10T16:00:00.000Z')));
+        expect(
+          user.createdAt,
+          equals(DateTime.parse('2025-01-10T16:00:00.000Z')),
+        );
         expect(user.updatedAt, isNull);
         expect(user.profileImageUrl, isNull);
       });
@@ -193,7 +217,8 @@ void main() {
         ];
 
         for (int i = 0; i < permissionLevels.length; i++) {
-          final Map<String, dynamic> json = Map<String, dynamic>.from(validUserJson);
+          final Map<String, dynamic> json =
+              Map<String, dynamic>.from(validUserJson);
           json['permissionLevel'] = permissionLevels[i];
 
           final User user = User.fromJson(json);
@@ -217,8 +242,8 @@ void main() {
           ];
 
           for (final String field in requiredFields) {
-            final Map<String, dynamic> incompleteJson = Map<String, dynamic>.from(validUserJson);
-            incompleteJson.remove(field);
+            final Map<String, dynamic> incompleteJson =
+                Map<String, dynamic>.from(validUserJson)..remove(field);
 
             expect(
               () => User.fromJson(incompleteJson),
@@ -249,7 +274,8 @@ void main() {
           ];
 
           for (final String field in requiredFields) {
-            final Map<String, dynamic> invalidJson = Map<String, dynamic>.from(validUserJson);
+            final Map<String, dynamic> invalidJson =
+                Map<String, dynamic>.from(validUserJson);
             invalidJson[field] = '';
 
             expect(
@@ -271,7 +297,8 @@ void main() {
         /// This test verifies that the fromJson constructor properly validates permission level values and throws
         /// descriptive errors for invalid values.
         test('should throw ArgumentError for invalid permission level', () {
-          final Map<String, dynamic> invalidJson = Map<String, dynamic>.from(validUserJson);
+          final Map<String, dynamic> invalidJson =
+              Map<String, dynamic>.from(validUserJson);
           invalidJson['permissionLevel'] = 'invalid_level';
 
           expect(
@@ -291,7 +318,8 @@ void main() {
         /// This test ensures that invalid date/time strings are properly handled and result in descriptive
         /// FormatException errors.
         test('should throw FormatException for invalid timestamp format', () {
-          final Map<String, dynamic> invalidJson = Map<String, dynamic>.from(validUserJson);
+          final Map<String, dynamic> invalidJson =
+              Map<String, dynamic>.from(validUserJson);
           invalidJson['createdAt'] = 'invalid-timestamp';
 
           expect(
@@ -321,7 +349,8 @@ void main() {
           ];
 
           for (final String field in requiredFields) {
-            final Map<String, dynamic> nullJson = Map<String, dynamic>.from(validUserJson);
+            final Map<String, dynamic> nullJson =
+                Map<String, dynamic>.from(validUserJson);
             nullJson[field] = null;
 
             expect(
@@ -354,7 +383,10 @@ void main() {
         expect(json['permissionLevel'], equals('primary'));
         expect(json['createdAt'], equals('2025-01-10T14:30:00.000Z'));
         expect(json['updatedAt'], equals('2025-01-10T15:00:00.000Z'));
-        expect(json['profileImageUrl'], equals('https://example.com/profile.jpg'));
+        expect(
+          json['profileImageUrl'],
+          equals('https://example.com/profile.jpg'),
+        );
       });
 
       /// Tests JSON serialization with null optional fields.
@@ -395,7 +427,10 @@ void main() {
         expect(json, containsPair('permissionLevel', 'primary'));
         expect(json, containsPair('createdAt', '2025-01-10T14:30:00.000Z'));
         expect(json, containsPair('updatedAt', '2025-01-10T15:00:00.000Z'));
-        expect(json, containsPair('profileImageUrl', 'https://example.com/profile.jpg'));
+        expect(
+          json,
+          containsPair('profileImageUrl', 'https://example.com/profile.jpg'),
+        );
 
         // Note: 'email' field is missing from toJson but required by fromJson
         // This is a bug that should be fixed in the User class implementation
@@ -440,17 +475,29 @@ void main() {
       /// This test verifies that each field can be updated independently without affecting other fields, ensuring
       /// proper isolation of changes.
       test('should update individual fields independently', () {
-        final User updatedDisplayName = validUser.copyWith(displayName: 'New Name');
-        final User updatedPermission = validUser.copyWith(permissionLevel: UserPermissionLevel.child);
-        final User updatedImage = validUser.copyWith(profileImageUrl: 'https://new.com/image.jpg');
+        final User updatedDisplayName =
+            validUser.copyWith(displayName: 'New Name');
+        final User updatedPermission =
+            validUser.copyWith(permissionLevel: UserPermissionLevel.child);
+        final User updatedImage =
+            validUser.copyWith(profileImageUrl: 'https://new.com/image.jpg');
 
         expect(updatedDisplayName.displayName, equals('New Name'));
-        expect(updatedDisplayName.permissionLevel, equals(validUser.permissionLevel));
+        expect(
+          updatedDisplayName.permissionLevel,
+          equals(validUser.permissionLevel),
+        );
 
-        expect(updatedPermission.permissionLevel, equals(UserPermissionLevel.child));
+        expect(
+          updatedPermission.permissionLevel,
+          equals(UserPermissionLevel.child),
+        );
         expect(updatedPermission.displayName, equals(validUser.displayName));
 
-        expect(updatedImage.profileImageUrl, equals('https://new.com/image.jpg'));
+        expect(
+          updatedImage.profileImageUrl,
+          equals('https://new.com/image.jpg'),
+        );
         expect(updatedImage.displayName, equals(validUser.displayName));
       });
 
@@ -567,9 +614,18 @@ void main() {
         expect(stringRepresentation, contains('displayName: John Doe'));
         expect(stringRepresentation, contains('familyId: family_456'));
         expect(stringRepresentation, contains('permissionLevel: primary'));
-        expect(stringRepresentation, contains('createdAt: 2025-01-10 14:30:00.000Z'));
-        expect(stringRepresentation, contains('updatedAt: 2025-01-10 15:00:00.000Z'));
-        expect(stringRepresentation, contains('profileImageUrl: https://example.com/profile.jpg'));
+        expect(
+          stringRepresentation,
+          contains('createdAt: 2025-01-10 14:30:00.000Z'),
+        );
+        expect(
+          stringRepresentation,
+          contains('updatedAt: 2025-01-10 15:00:00.000Z'),
+        );
+        expect(
+          stringRepresentation,
+          contains('profileImageUrl: https://example.com/profile.jpg'),
+        );
       });
 
       /// Tests that toString handles null optional fields correctly.

@@ -153,14 +153,17 @@ class User {
       }
 
       // Parse permission level
-      final UserPermissionLevel permissionLevel = UserPermissionLevel.fromString(permissionLevelString);
+      final UserPermissionLevel permissionLevel =
+          UserPermissionLevel.fromString(permissionLevelString);
 
       // Parse timestamps
       final DateTime createdAt = DateTime.parse(createdAtString);
 
       final String? updatedAtString = json['updatedAt'] as String?;
       final DateTime? updatedAt =
-          updatedAtString != null && updatedAtString.isNotEmpty ? DateTime.parse(updatedAtString) : null;
+          updatedAtString != null && updatedAtString.isNotEmpty
+              ? DateTime.parse(updatedAtString)
+              : null;
 
       // Extract optional fields
       final String? profileImageUrl = json['profileImageUrl'] as String?;

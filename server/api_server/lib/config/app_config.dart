@@ -102,28 +102,32 @@ class AppConfig {
   /// - AUTH_EMULATOR_HOST (required if USE_FIREBASE_EMULATOR is true)
   factory AppConfig.fromEnvironment() {
     // Load required Firebase configuration
-    final String? firebaseProjectId = Platform.environment['FIREBASE_PROJECT_ID'];
+    final String? firebaseProjectId =
+        Platform.environment['FIREBASE_PROJECT_ID'];
     if (firebaseProjectId == null || firebaseProjectId.isEmpty) {
       throw const ConfigurationException(
         'FIREBASE_PROJECT_ID environment variable is required',
       );
     }
 
-    final String? firebasePrivateKeyId = Platform.environment['FIREBASE_PRIVATE_KEY_ID'];
+    final String? firebasePrivateKeyId =
+        Platform.environment['FIREBASE_PRIVATE_KEY_ID'];
     if (firebasePrivateKeyId == null || firebasePrivateKeyId.isEmpty) {
       throw const ConfigurationException(
         'FIREBASE_PRIVATE_KEY_ID environment variable is required',
       );
     }
 
-    final String? firebasePrivateKey = Platform.environment['FIREBASE_PRIVATE_KEY'];
+    final String? firebasePrivateKey =
+        Platform.environment['FIREBASE_PRIVATE_KEY'];
     if (firebasePrivateKey == null || firebasePrivateKey.isEmpty) {
       throw const ConfigurationException(
         'FIREBASE_PRIVATE_KEY environment variable is required',
       );
     }
 
-    final String? firebaseClientEmail = Platform.environment['FIREBASE_CLIENT_EMAIL'];
+    final String? firebaseClientEmail =
+        Platform.environment['FIREBASE_CLIENT_EMAIL'];
     if (firebaseClientEmail == null || firebaseClientEmail.isEmpty) {
       throw const ConfigurationException(
         'FIREBASE_CLIENT_EMAIL environment variable is required',
@@ -168,8 +172,13 @@ class AppConfig {
       );
     }
 
-    final String environment = Platform.environment['ENVIRONMENT'] ?? 'development';
-    final List<String> validEnvironments = ['development', 'staging', 'production'];
+    final String environment =
+        Platform.environment['ENVIRONMENT'] ?? 'development';
+    final List<String> validEnvironments = [
+      'development',
+      'staging',
+      'production',
+    ];
     if (!validEnvironments.contains(environment)) {
       throw ConfigurationException(
         'ENVIRONMENT must be one of ${validEnvironments.join(', ')}, got: $environment',
@@ -177,7 +186,8 @@ class AppConfig {
     }
 
     // Load emulator configuration
-    final String useEmulatorString = Platform.environment['USE_FIREBASE_EMULATOR'] ?? 'false';
+    final String useEmulatorString =
+        Platform.environment['USE_FIREBASE_EMULATOR'] ?? 'false';
     final bool useFirebaseEmulator = useEmulatorString.toLowerCase() == 'true';
 
     String? firestoreEmulatorHost;

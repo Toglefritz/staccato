@@ -85,7 +85,8 @@ enum UserPermissionLevel {
   ///
   /// Returns `true` for [primary] and [adult] users who can access most features. Returns `false` for [child] users
   /// with limited access.
-  bool get isAdult => this == UserPermissionLevel.primary || this == UserPermissionLevel.adult;
+  bool get isAdult =>
+      this == UserPermissionLevel.primary || this == UserPermissionLevel.adult;
 
   /// Whether this permission level can manage other users.
   ///

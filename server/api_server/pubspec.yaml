@@ -10,8 +10,8 @@ dependencies:
   crypto: ^3.0.3
   dart_frog: ^1.1.0  
   dotenv: ^4.2.0
-  firebase_admin: ^0.3.0
   http: ^1.1.0
+  jose: ^0.3.5
   logging: ^1.2.0
   meta: ^1.17.0
   uuid: ^4.0.0

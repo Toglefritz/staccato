@@ -139,7 +139,7 @@ class FamilyInvitationCreateRequest {
     }
 
     // Validate email format if provided
-    if (invitedEmail != null && invitedEmail!.isNotEmpty && !_isValidEmail(invitedEmail!)) {
+    if (invitedEmail != null && !_isValidEmail(invitedEmail!)) {
       errors.add('Invalid email format');
     }
 
@@ -176,8 +176,8 @@ class FamilyInvitationCreateRequest {
   /// Returns `true` if the requesting user can create this invitation, `false` otherwise.
   ///
   /// Authorization rules:
-  /// - Primary users can invite adult or child users
-  /// - Adult users can invite child users (depending on family settings)
+  /// - Primary users can invite adult or child users (but not other primary users)
+  /// - Adult users can invite child users (but not other adults or primary users)
   /// - Child users cannot create invitations
   /// - Users cannot invite someone with equal or higher permissions than themselves
   bool canBeCreatedBy(UserPermissionLevel requestingUserPermissionLevel) {
@@ -186,8 +186,19 @@ class FamilyInvitationCreateRequest {
       return false;
     }
 
-    // Users cannot invite someone with equal or higher permissions
-    return requestingUserPermissionLevel.hasAuthorityOver(targetPermissionLevel);
+    // Users cannot invite someone with equal or higher permissions than themselves
+    // We need to check that the requesting user has STRICTLY higher authority
+    const List<UserPermissionLevel> hierarchy = [
+      UserPermissionLevel.primary,
+      UserPermissionLevel.adult,
+      UserPermissionLevel.child,
+    ];
+
+    final int requestingIndex = hierarchy.indexOf(requestingUserPermissionLevel);
+    final int targetIndex = hierarchy.indexOf(targetPermissionLevel);
+
+    // Requesting user must have strictly higher authority (lower index in hierarchy)
+    return requestingIndex < targetIndex;
   }
 
   /// Simple email validation helper method.
@@ -200,6 +211,19 @@ class FamilyInvitationCreateRequest {
   ///
   /// Returns `true` if the email appears to be in a valid format, `false` otherwise.
   static bool _isValidEmail(String email) {
+    // Basic email validation that rejects common invalid patterns
+    if (email.isEmpty) return false;
+    if (email.startsWith('.') || email.endsWith('.')) return false;
+    if (email.startsWith('@') || email.endsWith('@')) return false;
+    if (email.contains('..')) return false; // No consecutive dots
+    if (!email.contains('@')) return false;
+
+    final List<String> parts = email.split('@');
+    if (parts.length != 2) return false; // Exactly one @ symbol
+    if (parts[0].isEmpty || parts[1].isEmpty) return false;
+    if (!parts[1].contains('.')) return false; // Domain must have a dot
+    if (parts[1].startsWith('.') || parts[1].endsWith('.')) return false;
+
     final RegExp emailRegex = RegExp(
       r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
     );

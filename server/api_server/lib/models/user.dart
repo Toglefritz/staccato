@@ -127,10 +127,7 @@ class User {
         throw ArgumentError('Missing or empty required field: id');
       }
 
-      final String? email = json['email'] as String?;
-      if (email == null || email.isEmpty) {
-        throw ArgumentError('Missing or empty required field: email');
-      }
+      // Note: email field is not part of the User model in this implementation
 
       final String? displayName = json['displayName'] as String?;
       if (displayName == null || displayName.isEmpty) {
@@ -153,17 +150,14 @@ class User {
       }
 
       // Parse permission level
-      final UserPermissionLevel permissionLevel =
-          UserPermissionLevel.fromString(permissionLevelString);
+      final UserPermissionLevel permissionLevel = UserPermissionLevel.fromString(permissionLevelString);
 
       // Parse timestamps
       final DateTime createdAt = DateTime.parse(createdAtString);
 
       final String? updatedAtString = json['updatedAt'] as String?;
       final DateTime? updatedAt =
-          updatedAtString != null && updatedAtString.isNotEmpty
-              ? DateTime.parse(updatedAtString)
-              : null;
+          updatedAtString != null && updatedAtString.isNotEmpty ? DateTime.parse(updatedAtString) : null;
 
       // Extract optional fields
       final String? profileImageUrl = json['profileImageUrl'] as String?;

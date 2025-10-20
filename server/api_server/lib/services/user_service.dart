@@ -1,12 +1,10 @@
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
-import 'package:staccato_api_server/exceptions/service_exception.dart'
-    show ServiceException;
+import 'package:staccato_api_server/exceptions/service_exception.dart' show ServiceException;
+import 'package:staccato_api_server/exceptions/validation_exception.dart';
+import 'package:staccato_api_server/models/user.dart';
+import 'package:staccato_api_server/repositories/user_repository.dart';
 import 'package:uuid/uuid.dart';
-
-import '../exceptions/validation_exception.dart';
-import '../models/user.dart';
-import '../repositories/user_repository.dart';
 
 /// Service for managing user operations and business logic.
 ///
@@ -175,8 +173,7 @@ class UserService {
     }
 
     // Validate profile image URL format if provided
-    if (request.profileImageUrl != null &&
-        request.profileImageUrl!.isNotEmpty) {
+    if (request.profileImageUrl != null && request.profileImageUrl!.isNotEmpty) {
       final Uri? uri = Uri.tryParse(request.profileImageUrl!);
       if (uri == null || (!uri.isScheme('http') && !uri.isScheme('https'))) {
         throw ValidationException.invalidFormat(
@@ -250,8 +247,7 @@ class UserCreateRequest {
       }
 
       // Parse permission level
-      final UserPermissionLevel permissionLevel =
-          UserPermissionLevel.fromString(permissionLevelString);
+      final UserPermissionLevel permissionLevel = UserPermissionLevel.fromString(permissionLevelString);
 
       // Extract optional fields
       final String? profileImageUrl = json['profileImageUrl'] as String?;

@@ -99,15 +99,10 @@ void main() {
       ///
       /// This test verifies that the isAdmin getter correctly identifies users with administrative privileges based on
       /// their permission level.
-      test(
-          'should return correct isAdmin value for different permission levels',
-          () {
-        final User primaryUser =
-            validUser.copyWith(permissionLevel: UserPermissionLevel.primary);
-        final User adultUser =
-            validUser.copyWith(permissionLevel: UserPermissionLevel.adult);
-        final User childUser =
-            validUser.copyWith(permissionLevel: UserPermissionLevel.child);
+      test('should return correct isAdmin value for different permission levels', () {
+        final User primaryUser = validUser.copyWith(permissionLevel: UserPermissionLevel.primary);
+        final User adultUser = validUser.copyWith(permissionLevel: UserPermissionLevel.adult);
+        final User childUser = validUser.copyWith(permissionLevel: UserPermissionLevel.child);
 
         expect(primaryUser.isAdmin, isTrue);
         expect(adultUser.isAdmin, isFalse);
@@ -118,15 +113,10 @@ void main() {
       ///
       /// This test verifies that the isAdult getter correctly identifies users with adult-level access based on their
       /// permission level.
-      test(
-          'should return correct isAdult value for different permission levels',
-          () {
-        final User primaryUser =
-            validUser.copyWith(permissionLevel: UserPermissionLevel.primary);
-        final User adultUser =
-            validUser.copyWith(permissionLevel: UserPermissionLevel.adult);
-        final User childUser =
-            validUser.copyWith(permissionLevel: UserPermissionLevel.child);
+      test('should return correct isAdult value for different permission levels', () {
+        final User primaryUser = validUser.copyWith(permissionLevel: UserPermissionLevel.primary);
+        final User adultUser = validUser.copyWith(permissionLevel: UserPermissionLevel.adult);
+        final User childUser = validUser.copyWith(permissionLevel: UserPermissionLevel.child);
 
         expect(primaryUser.isAdult, isTrue);
         expect(adultUser.isAdult, isTrue);
@@ -137,15 +127,10 @@ void main() {
       ///
       /// This test verifies that the canManageUsers getter correctly identifies users who can manage other family
       /// members based on their permission level.
-      test(
-          'should return correct canManageUsers value for different permission levels',
-          () {
-        final User primaryUser =
-            validUser.copyWith(permissionLevel: UserPermissionLevel.primary);
-        final User adultUser =
-            validUser.copyWith(permissionLevel: UserPermissionLevel.adult);
-        final User childUser =
-            validUser.copyWith(permissionLevel: UserPermissionLevel.child);
+      test('should return correct canManageUsers value for different permission levels', () {
+        final User primaryUser = validUser.copyWith(permissionLevel: UserPermissionLevel.primary);
+        final User adultUser = validUser.copyWith(permissionLevel: UserPermissionLevel.adult);
+        final User childUser = validUser.copyWith(permissionLevel: UserPermissionLevel.child);
 
         expect(primaryUser.canManageUsers, isTrue);
         expect(adultUser.canManageUsers, isFalse);
@@ -217,8 +202,7 @@ void main() {
         ];
 
         for (int i = 0; i < permissionLevels.length; i++) {
-          final Map<String, dynamic> json =
-              Map<String, dynamic>.from(validUserJson);
+          final Map<String, dynamic> json = Map<String, dynamic>.from(validUserJson);
           json['permissionLevel'] = permissionLevels[i];
 
           final User user = User.fromJson(json);
@@ -234,7 +218,6 @@ void main() {
         test('should throw ArgumentError for missing required fields', () {
           final List<String> requiredFields = [
             'id',
-            'email',
             'displayName',
             'familyId',
             'permissionLevel',
@@ -242,8 +225,7 @@ void main() {
           ];
 
           for (final String field in requiredFields) {
-            final Map<String, dynamic> incompleteJson =
-                Map<String, dynamic>.from(validUserJson)..remove(field);
+            final Map<String, dynamic> incompleteJson = Map<String, dynamic>.from(validUserJson)..remove(field);
 
             expect(
               () => User.fromJson(incompleteJson),
@@ -266,7 +248,6 @@ void main() {
         test('should throw ArgumentError for empty required fields', () {
           final List<String> requiredFields = [
             'id',
-            'email',
             'displayName',
             'familyId',
             'permissionLevel',
@@ -274,8 +255,7 @@ void main() {
           ];
 
           for (final String field in requiredFields) {
-            final Map<String, dynamic> invalidJson =
-                Map<String, dynamic>.from(validUserJson);
+            final Map<String, dynamic> invalidJson = Map<String, dynamic>.from(validUserJson);
             invalidJson[field] = '';
 
             expect(
@@ -297,8 +277,7 @@ void main() {
         /// This test verifies that the fromJson constructor properly validates permission level values and throws
         /// descriptive errors for invalid values.
         test('should throw ArgumentError for invalid permission level', () {
-          final Map<String, dynamic> invalidJson =
-              Map<String, dynamic>.from(validUserJson);
+          final Map<String, dynamic> invalidJson = Map<String, dynamic>.from(validUserJson);
           invalidJson['permissionLevel'] = 'invalid_level';
 
           expect(
@@ -318,8 +297,7 @@ void main() {
         /// This test ensures that invalid date/time strings are properly handled and result in descriptive
         /// FormatException errors.
         test('should throw FormatException for invalid timestamp format', () {
-          final Map<String, dynamic> invalidJson =
-              Map<String, dynamic>.from(validUserJson);
+          final Map<String, dynamic> invalidJson = Map<String, dynamic>.from(validUserJson);
           invalidJson['createdAt'] = 'invalid-timestamp';
 
           expect(
@@ -341,7 +319,6 @@ void main() {
         test('should throw ArgumentError for null required fields', () {
           final List<String> requiredFields = [
             'id',
-            'email',
             'displayName',
             'familyId',
             'permissionLevel',
@@ -349,8 +326,7 @@ void main() {
           ];
 
           for (final String field in requiredFields) {
-            final Map<String, dynamic> nullJson =
-                Map<String, dynamic>.from(validUserJson);
+            final Map<String, dynamic> nullJson = Map<String, dynamic>.from(validUserJson);
             nullJson[field] = null;
 
             expect(
@@ -475,12 +451,9 @@ void main() {
       /// This test verifies that each field can be updated independently without affecting other fields, ensuring
       /// proper isolation of changes.
       test('should update individual fields independently', () {
-        final User updatedDisplayName =
-            validUser.copyWith(displayName: 'New Name');
-        final User updatedPermission =
-            validUser.copyWith(permissionLevel: UserPermissionLevel.child);
-        final User updatedImage =
-            validUser.copyWith(profileImageUrl: 'https://new.com/image.jpg');
+        final User updatedDisplayName = validUser.copyWith(displayName: 'New Name');
+        final User updatedPermission = validUser.copyWith(permissionLevel: UserPermissionLevel.child);
+        final User updatedImage = validUser.copyWith(profileImageUrl: 'https://new.com/image.jpg');
 
         expect(updatedDisplayName.displayName, equals('New Name'));
         expect(

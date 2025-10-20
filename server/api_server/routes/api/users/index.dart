@@ -71,8 +71,7 @@ Future<Response> _createUser(RequestContext context) async {
     final UserService userService = context.read<UserService>();
 
     // Parse request body
-    final Map<String, dynamic> body =
-        await context.request.json() as Map<String, dynamic>;
+    final Map<String, dynamic> body = await context.request.json() as Map<String, dynamic>;
     final UserCreateRequest request = UserCreateRequest.fromJson(body);
 
     _logger.fine('User creation request parsed', {

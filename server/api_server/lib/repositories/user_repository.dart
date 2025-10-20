@@ -1,6 +1,6 @@
-import '../exceptions/conflict_exception.dart';
-import '../exceptions/service_exception.dart';
-import '../models/user.dart';
+import 'package:staccato_api_server/exceptions/conflict_exception.dart';
+import 'package:staccato_api_server/exceptions/service_exception.dart';
+import 'package:staccato_api_server/models/user.dart';
 
 /// Repository interface for user data operations.
 ///

@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:jose/jose.dart';
 import 'package:logging/logging.dart';
 
-import '../exceptions/service_exception.dart';
+import 'package:staccato_api_server/exceptions/service_exception.dart';
 
 /// Custom Firestore client using the REST API.
 ///

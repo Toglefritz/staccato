@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:dotenv/dotenv.dart';
 
-import '../../lib/services/firestore_client.dart';
+import 'package:staccato_api_server/services/firestore_client.dart';
 
 /// Manual test script for Firestore client.
 ///

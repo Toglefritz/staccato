@@ -1,10 +1,9 @@
 import 'package:logging/logging.dart';
-
-import '../exceptions/conflict_exception.dart';
-import '../exceptions/service_exception.dart';
-import '../models/user.dart';
-import '../services/firestore_client.dart';
-import 'user_repository.dart';
+import 'package:staccato_api_server/exceptions/conflict_exception.dart';
+import 'package:staccato_api_server/exceptions/service_exception.dart';
+import 'package:staccato_api_server/models/user.dart';
+import 'package:staccato_api_server/repositories/user_repository.dart';
+import 'package:staccato_api_server/services/firestore_client.dart';
 
 /// Firestore implementation of the user repository.
 ///
@@ -39,8 +38,7 @@ class FirestoreUserRepository implements UserRepository {
       });
 
       // Check if user already exists
-      final bool exists =
-          await _firestoreClient.documentExists(_collectionName, user.id);
+      final bool exists = await _firestoreClient.documentExists(_collectionName, user.id);
       if (exists) {
         throw ConflictException('User with ID ${user.id} already exists');
       }
@@ -75,8 +73,7 @@ class FirestoreUserRepository implements UserRepository {
     try {
       _logger.fine('Finding user by ID', {'userId': id});
 
-      final Map<String, dynamic>? data =
-          await _firestoreClient.getDocument(_collectionName, id);
+      final Map<String, dynamic>? data = await _firestoreClient.getDocument(_collectionName, id);
 
       if (data == null) {
         _logger.fine('User not found', {'userId': id});
@@ -108,8 +105,7 @@ class FirestoreUserRepository implements UserRepository {
         'offset': offset,
       });
 
-      final List<Map<String, dynamic>> documents =
-          await _firestoreClient.queryDocuments(
+      final List<Map<String, dynamic>> documents = await _firestoreClient.queryDocuments(
         _collectionName,
         where: <String, dynamic>{'familyId': familyId},
         limit: limit,
@@ -142,8 +138,7 @@ class FirestoreUserRepository implements UserRepository {
       });
 
       // Check if user exists
-      final bool exists =
-          await _firestoreClient.documentExists(_collectionName, user.id);
+      final bool exists = await _firestoreClient.documentExists(_collectionName, user.id);
       if (!exists) {
         throw ServiceException('User with ID ${user.id} does not exist');
       }
@@ -173,8 +168,7 @@ class FirestoreUserRepository implements UserRepository {
       _logger.info('Deleting user', {'userId': id});
 
       // Check if user exists
-      final bool exists =
-          await _firestoreClient.documentExists(_collectionName, id);
+      final bool exists = await _firestoreClient.documentExists(_collectionName, id);
       if (!exists) {
         throw ServiceException('User with ID $id does not exist');
       }
@@ -197,8 +191,7 @@ class FirestoreUserRepository implements UserRepository {
     try {
       _logger.fine('Checking if user exists', {'userId': id});
 
-      final bool userExists =
-          await _firestoreClient.documentExists(_collectionName, id);
+      final bool userExists = await _firestoreClient.documentExists(_collectionName, id);
 
       _logger.fine('User existence check completed', {
         'userId': id,

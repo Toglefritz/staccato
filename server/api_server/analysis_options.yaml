@@ -34,3 +34,4 @@ linter:
     sort_constructors_first: false
     lines_longer_than_80_chars: false
     omit_local_variable_types: false
+    always_use_package_imports: false

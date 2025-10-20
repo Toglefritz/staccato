@@ -1,8 +1,7 @@
 /// Application configuration management for the Staccato API server.
 ///
-/// This class handles loading and validating environment variables required
-/// for the application to run properly. It provides type-safe access to
-/// configuration values and validates required settings on startup.
+/// This class handles loading and validating environment variables required for the application to run properly. It
+/// provides type-safe access to configuration values and validates required settings on startup.
 library;
 
 import 'dart:io';
@@ -11,15 +10,12 @@ import 'package:staccato_api_server/exceptions/configuration_exception.dart';
 
 /// Application configuration loaded from environment variables.
 ///
-/// This class provides type-safe access to all configuration values
-/// required by the Staccato API server. It validates required settings
-/// during construction and throws [ConfigurationException] for missing
-/// or invalid values.
+/// This class provides type-safe access to all configuration values required by the Staccato API server. It validates
+/// required settings during construction and throws [ConfigurationException] for missing or invalid values.
 class AppConfig {
   /// Creates an application configuration with the specified values.
   ///
-  /// This constructor is private to enforce using `fromEnvironment`
-  /// factory constructor for proper validation.
+  /// This constructor is private to enforce using `fromEnvironment` factory constructor for proper validation.
   const AppConfig._({
     required this.firebaseProjectId,
     required this.firebasePrivateKeyId,
@@ -83,11 +79,10 @@ class AppConfig {
 
   /// Creates application configuration from environment variables.
   ///
-  /// This factory constructor loads configuration from environment variables
-  /// and validates that all required values are present and valid.
+  /// This factory constructor loads configuration from environment variables and validates that all required values are
+  /// present and valid.
   ///
-  /// Throws [ConfigurationException] if any required environment variable
-  /// is missing or has an invalid value.
+  /// Throws [ConfigurationException] if any required environment variable is missing or has an invalid value.
   ///
   /// Required environment variables:
   /// - FIREBASE_PROJECT_ID

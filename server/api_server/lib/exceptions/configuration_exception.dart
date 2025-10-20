@@ -1,8 +1,7 @@
-/// Configuration exception thrown when required environment variables
-/// are missing or invalid.
+/// Configuration exception thrown when required environment variables are missing or invalid.
 ///
-/// This exception is thrown during application startup when critical
-/// configuration values cannot be loaded or validated.
+/// This exception is thrown during application startup when critical configuration values cannot be loaded or
+/// validated.
 class ConfigurationException implements Exception {
   /// Creates a configuration exception with the specified message.
   ///

@@ -4,8 +4,11 @@ import 'dart:io';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:dotenv/dotenv.dart';
 
+import 'package:staccato_api_server/repositories/family_repository.dart';
+import 'package:staccato_api_server/repositories/firestore_family_repository.dart';
 import 'package:staccato_api_server/repositories/firestore_user_repository.dart';
 import 'package:staccato_api_server/repositories/user_repository.dart';
+import 'package:staccato_api_server/services/family_service.dart';
 import 'package:staccato_api_server/services/firestore_client.dart';
 import 'package:staccato_api_server/services/user_service.dart';
 
@@ -19,12 +22,19 @@ Handler middleware(Handler handler) {
   // Create all dependencies upfront to avoid context.read issues
   final FirestoreClient firestoreClient = _createFirestoreClient();
   final UserRepository userRepository = FirestoreUserRepository(firestoreClient);
+  final FamilyRepository familyRepository = FirestoreFamilyRepository(firestoreClient);
   final UserService userService = UserService(userRepository: userRepository);
+  final FamilyService familyService = FamilyService(
+    familyRepository: familyRepository,
+    userRepository: userRepository,
+  );
 
   return handler
       .use(provider<FirestoreClient>((RequestContext context) => firestoreClient))
       .use(provider<UserRepository>((RequestContext context) => userRepository))
-      .use(provider<UserService>((RequestContext context) => userService));
+      .use(provider<FamilyRepository>((RequestContext context) => familyRepository))
+      .use(provider<UserService>((RequestContext context) => userService))
+      .use(provider<FamilyService>((RequestContext context) => familyService));
 }
 
 /// Creates a FirestoreClient instance from environment configuration.

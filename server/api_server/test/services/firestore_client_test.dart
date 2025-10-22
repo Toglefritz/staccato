@@ -33,15 +33,11 @@ void main() {
         final String? keyFilePath = env['GOOGLE_SERVICE_ACCOUNT_KEY_FILE'];
 
         // Try to load from JSON file if individual variables are not available
-        if ((projectId == null ||
-                serviceAccountEmail == null ||
-                privateKey == null) &&
-            keyFilePath != null) {
+        if ((projectId == null || serviceAccountEmail == null || privateKey == null) && keyFilePath != null) {
           final File keyFile = File(keyFilePath);
           if (keyFile.existsSync()) {
             final String keyFileContent = keyFile.readAsStringSync();
-            final Map<String, dynamic> keyData =
-                jsonDecode(keyFileContent) as Map<String, dynamic>;
+            final Map<String, dynamic> keyData = jsonDecode(keyFileContent) as Map<String, dynamic>;
 
             projectId = keyData['project_id'] as String?;
             serviceAccountEmail = keyData['client_email'] as String?;
@@ -49,9 +45,7 @@ void main() {
           }
         }
 
-        if (projectId == null ||
-            serviceAccountEmail == null ||
-            privateKey == null) {
+        if (projectId == null || serviceAccountEmail == null || privateKey == null) {
           throw StateError(
             'Missing required credentials. Please check your .env file.\n'
             'Required: Either individual env vars or GOOGLE_SERVICE_ACCOUNT_KEY_FILE',
@@ -83,8 +77,7 @@ void main() {
           };
 
           // Act
-          final Map<String, dynamic> result =
-              await client.createDocument(testCollection, testData);
+          final Map<String, dynamic> result = await client.createDocument(testCollection, testData);
 
           // Assert
           expect(result['id'], isNotNull);
@@ -139,8 +132,7 @@ void main() {
           );
 
           // Act
-          final Map<String, dynamic>? result =
-              await client.getDocument(testCollection, documentId);
+          final Map<String, dynamic>? result = await client.getDocument(testCollection, documentId);
 
           // Assert
           expect(result, isNotNull);
@@ -158,8 +150,7 @@ void main() {
 
         test('should return null for non-existent document', () async {
           // Act
-          final Map<String, dynamic>? result =
-              await client.getDocument(testCollection, 'non_existent_id');
+          final Map<String, dynamic>? result = await client.getDocument(testCollection, 'non_existent_id');
 
           // Assert
           expect(result, isNull);
@@ -221,16 +212,14 @@ void main() {
           );
 
           // Verify it exists
-          final Map<String, dynamic>? beforeDelete =
-              await client.getDocument(testCollection, documentId);
+          final Map<String, dynamic>? beforeDelete = await client.getDocument(testCollection, documentId);
           expect(beforeDelete, isNotNull);
 
           // Act - Delete the document
           await client.deleteDocument(testCollection, documentId);
 
           // Assert - Verify it's gone
-          final Map<String, dynamic>? afterDelete =
-              await client.getDocument(testCollection, documentId);
+          final Map<String, dynamic>? afterDelete = await client.getDocument(testCollection, documentId);
           expect(afterDelete, isNull);
 
           print('✅ Deleted document: $documentId');
@@ -252,13 +241,11 @@ void main() {
           );
 
           // Act & Assert - Check existing document
-          final bool exists =
-              await client.documentExists(testCollection, documentId);
+          final bool exists = await client.documentExists(testCollection, documentId);
           expect(exists, isTrue);
 
           // Act & Assert - Check non-existent document
-          final bool notExists =
-              await client.documentExists(testCollection, 'non_existent');
+          final bool notExists = await client.documentExists(testCollection, 'non_existent');
           expect(notExists, isFalse);
 
           print('✅ Document existence checks work correctly');
@@ -309,8 +296,7 @@ void main() {
 
         test('should query all documents in collection', () async {
           // Act
-          final List<Map<String, dynamic>> results =
-              await client.queryDocuments(testCollection);
+          final List<Map<String, dynamic>> results = await client.queryDocuments(testCollection);
 
           // Assert
           expect(
@@ -322,8 +308,7 @@ void main() {
 
         test('should query documents with where filter', () async {
           // Act
-          final List<Map<String, dynamic>> results =
-              await client.queryDocuments(
+          final List<Map<String, dynamic>> results = await client.queryDocuments(
             testCollection,
             where: <String, dynamic>{'familyId': 'family_query_test'},
           );
@@ -339,8 +324,7 @@ void main() {
 
         test('should query documents with multiple filters', () async {
           // Act
-          final List<Map<String, dynamic>> results =
-              await client.queryDocuments(
+          final List<Map<String, dynamic>> results = await client.queryDocuments(
             testCollection,
             where: <String, dynamic>{
               'familyId': 'family_query_test',
@@ -359,8 +343,7 @@ void main() {
 
         test('should query documents with limit', () async {
           // Act
-          final List<Map<String, dynamic>> results =
-              await client.queryDocuments(
+          final List<Map<String, dynamic>> results = await client.queryDocuments(
             testCollection,
             where: <String, dynamic>{'familyId': 'family_query_test'},
             limit: 2,
@@ -377,16 +360,14 @@ void main() {
 
         test('should query documents with offset', () async {
           // Act - Get first 2 documents
-          final List<Map<String, dynamic>> firstBatch =
-              await client.queryDocuments(
+          final List<Map<String, dynamic>> firstBatch = await client.queryDocuments(
             testCollection,
             where: <String, dynamic>{'familyId': 'family_query_test'},
             limit: 2,
           );
 
           // Act - Get next document with offset
-          final List<Map<String, dynamic>> secondBatch =
-              await client.queryDocuments(
+          final List<Map<String, dynamic>> secondBatch = await client.queryDocuments(
             testCollection,
             where: <String, dynamic>{'familyId': 'family_query_test'},
             limit: 1,
@@ -398,12 +379,8 @@ void main() {
           expect(secondBatch.length, equals(1));
 
           // Ensure we got different documents
-          final Set<String> firstIds = firstBatch
-              .map((Map<String, dynamic> doc) => doc['id'] as String)
-              .toSet();
-          final Set<String> secondIds = secondBatch
-              .map((Map<String, dynamic> doc) => doc['id'] as String)
-              .toSet();
+          final Set<String> firstIds = firstBatch.map((Map<String, dynamic> doc) => doc['id'] as String).toSet();
+          final Set<String> secondIds = secondBatch.map((Map<String, dynamic> doc) => doc['id'] as String).toSet();
           expect(firstIds.intersection(secondIds), isEmpty);
 
           print('✅ Offset query returned different documents');
@@ -436,8 +413,7 @@ void main() {
             testData,
             documentId: documentId,
           );
-          final Map<String, dynamic>? result =
-              await client.getDocument(testCollection, documentId);
+          final Map<String, dynamic>? result = await client.getDocument(testCollection, documentId);
 
           // Assert
           expect(result, isNotNull);
@@ -494,15 +470,11 @@ bool _shouldSkipIntegrationTests() {
     final String? keyFilePath = env['GOOGLE_SERVICE_ACCOUNT_KEY_FILE'];
 
     // Try to load from JSON file if individual variables are not available
-    if ((projectId == null ||
-            serviceAccountEmail == null ||
-            privateKey == null) &&
-        keyFilePath != null) {
+    if ((projectId == null || serviceAccountEmail == null || privateKey == null) && keyFilePath != null) {
       final File keyFile = File(keyFilePath);
       if (keyFile.existsSync()) {
         final String keyFileContent = keyFile.readAsStringSync();
-        final Map<String, dynamic> keyData =
-            jsonDecode(keyFileContent) as Map<String, dynamic>;
+        final Map<String, dynamic> keyData = jsonDecode(keyFileContent) as Map<String, dynamic>;
 
         projectId = keyData['project_id'] as String?;
         serviceAccountEmail = keyData['client_email'] as String?;
@@ -510,9 +482,7 @@ bool _shouldSkipIntegrationTests() {
       }
     }
 
-    if (projectId == null ||
-        serviceAccountEmail == null ||
-        privateKey == null) {
+    if (projectId == null || serviceAccountEmail == null || privateKey == null) {
       print('⚠️  Skipping integration tests: Missing required credentials');
       return true;
     }

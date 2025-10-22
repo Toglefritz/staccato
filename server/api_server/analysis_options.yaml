@@ -10,6 +10,9 @@ analyzer:
     strict-inference: true
     strict-raw-types: true
 
+formatter: 
+  page_width: 120
+
 linter:
   rules:
     # Enforce documentation

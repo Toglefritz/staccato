@@ -153,19 +153,18 @@ class FamilyWithMembersResponse {
   /// This sorting provides a consistent and logical ordering for display in UI components.
   FamilyWithMembersResponse withSortedMembers() {
     final List<FamilyMemberSummary> sortedMembers = List<FamilyMemberSummary>.from(members)
+      ..sort((FamilyMemberSummary a, FamilyMemberSummary b) {
+        // Primary user always comes first
+        if (a.id == family.primaryUserId) return -1;
+        if (b.id == family.primaryUserId) return 1;
 
-    ..sort((FamilyMemberSummary a, FamilyMemberSummary b) {
-      // Primary user always comes first
-      if (a.id == family.primaryUserId) return -1;
-      if (b.id == family.primaryUserId) return 1;
+        // Then sort by permission level (adults before children)
+        if (a.isAdult && !b.isAdult) return -1;
+        if (!a.isAdult && b.isAdult) return 1;
 
-      // Then sort by permission level (adults before children)
-      if (a.isAdult && !b.isAdult) return -1;
-      if (!a.isAdult && b.isAdult) return 1;
-
-      // Within the same permission category, sort alphabetically by display name
-      return a.displayName.toLowerCase().compareTo(b.displayName.toLowerCase());
-    });
+        // Within the same permission category, sort alphabetically by display name
+        return a.displayName.toLowerCase().compareTo(b.displayName.toLowerCase());
+      });
 
     return copyWith(members: sortedMembers);
   }

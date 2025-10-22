@@ -28,6 +28,5 @@ class ServiceException implements Exception {
   final String code;
 
   @override
-  String toString() =>
-      'ServiceException($code): $message${cause != null ? ' (caused by: $cause)' : ''}';
+  String toString() => 'ServiceException($code): $message${cause != null ? ' (caused by: $cause)' : ''}';
 }

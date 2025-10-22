@@ -20,8 +20,7 @@ Future<void> main() async {
     // Test 1: Health check (if you have one)
     print('🔄 Test 1: Server health check...');
     try {
-      final http.Response healthResponse =
-          await client.get(Uri.parse('$baseUrl/'));
+      final http.Response healthResponse = await client.get(Uri.parse('$baseUrl/'));
       print('✅ Server is running (Status: ${healthResponse.statusCode})');
     } catch (e) {
       print('❌ Server health check failed: $e');
@@ -49,10 +48,8 @@ Future<void> main() async {
     );
 
     if (createResponse.statusCode == 201) {
-      final Map<String, dynamic> createdUser =
-          jsonDecode(createResponse.body) as Map<String, dynamic>;
-      final Map<String, dynamic> userData =
-          createdUser['data'] as Map<String, dynamic>;
+      final Map<String, dynamic> createdUser = jsonDecode(createResponse.body) as Map<String, dynamic>;
+      final Map<String, dynamic> userData = createdUser['data'] as Map<String, dynamic>;
 
       print('✅ User created successfully!');
       print('   ID: ${userData['id']}');
@@ -85,10 +82,8 @@ Future<void> main() async {
     );
 
     if (createResponse2.statusCode == 201) {
-      final Map<String, dynamic> createdUser2 =
-          jsonDecode(createResponse2.body) as Map<String, dynamic>;
-      final Map<String, dynamic> userData2 =
-          createdUser2['data'] as Map<String, dynamic>;
+      final Map<String, dynamic> createdUser2 = jsonDecode(createResponse2.body) as Map<String, dynamic>;
+      final Map<String, dynamic> userData2 = createdUser2['data'] as Map<String, dynamic>;
 
       print('✅ Second user created successfully!');
       print('   ID: ${userData2['id']}');
@@ -139,11 +134,9 @@ Future<void> main() async {
     );
 
     if (queryResponse.statusCode == 200) {
-      final Map<String, dynamic> queryResult =
-          jsonDecode(queryResponse.body) as Map<String, dynamic>;
+      final Map<String, dynamic> queryResult = jsonDecode(queryResponse.body) as Map<String, dynamic>;
       final List<dynamic> users = queryResult['data'] as List<dynamic>;
-      final Map<String, dynamic> meta =
-          queryResult['meta'] as Map<String, dynamic>;
+      final Map<String, dynamic> meta = queryResult['meta'] as Map<String, dynamic>;
 
       print('✅ Query successful!');
       print('   Found ${users.length} users in family_api_test');
@@ -170,8 +163,7 @@ Future<void> main() async {
     );
 
     if (paginationResponse.statusCode == 200) {
-      final Map<String, dynamic> paginationResult =
-          jsonDecode(paginationResponse.body) as Map<String, dynamic>;
+      final Map<String, dynamic> paginationResult = jsonDecode(paginationResponse.body) as Map<String, dynamic>;
       final List<dynamic> users = paginationResult['data'] as List<dynamic>;
 
       print('✅ Pagination test successful!');
@@ -201,10 +193,8 @@ Future<void> main() async {
     );
 
     if (validationResponse.statusCode == 400) {
-      final Map<String, dynamic> errorResult =
-          jsonDecode(validationResponse.body) as Map<String, dynamic>;
-      final Map<String, dynamic> error =
-          errorResult['error'] as Map<String, dynamic>;
+      final Map<String, dynamic> errorResult = jsonDecode(validationResponse.body) as Map<String, dynamic>;
+      final Map<String, dynamic> error = errorResult['error'] as Map<String, dynamic>;
 
       print('✅ Validation error handling works!');
       print('   Error message: ${error['message']}');

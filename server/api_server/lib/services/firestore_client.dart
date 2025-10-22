@@ -48,8 +48,7 @@ class FirestoreClient {
   static final Logger _logger = Logger('FirestoreClient');
 
   /// Base URL for Firestore REST API.
-  String get _baseUrl =>
-      'https://firestore.googleapis.com/v1/projects/$_projectId/databases/(default)/documents';
+  String get _baseUrl => 'https://firestore.googleapis.com/v1/projects/$_projectId/databases/(default)/documents';
 
   /// Current access token for authentication.
   String? _accessToken;
@@ -80,12 +79,9 @@ class FirestoreClient {
 
       await _ensureValidToken();
 
-      final String url = documentId != null
-          ? '$_baseUrl/$collection?documentId=$documentId'
-          : '$_baseUrl/$collection';
+      final String url = documentId != null ? '$_baseUrl/$collection?documentId=$documentId' : '$_baseUrl/$collection';
 
-      final Map<String, dynamic> firestoreDocument =
-          _convertToFirestoreDocument(data);
+      final Map<String, dynamic> firestoreDocument = _convertToFirestoreDocument(data);
 
       final http.Response response = await _httpClient.post(
         Uri.parse(url),
@@ -97,10 +93,8 @@ class FirestoreClient {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final Map<String, dynamic> responseData =
-            jsonDecode(response.body) as Map<String, dynamic>;
-        final Map<String, dynamic> convertedData =
-            _convertFromFirestoreDocument(responseData);
+        final Map<String, dynamic> responseData = jsonDecode(response.body) as Map<String, dynamic>;
+        final Map<String, dynamic> convertedData = _convertFromFirestoreDocument(responseData);
 
         _logger.fine('Document created successfully', {
           'collection': collection,
@@ -158,10 +152,8 @@ class FirestoreClient {
       );
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> responseData =
-            jsonDecode(response.body) as Map<String, dynamic>;
-        final Map<String, dynamic> convertedData =
-            _convertFromFirestoreDocument(responseData);
+        final Map<String, dynamic> responseData = jsonDecode(response.body) as Map<String, dynamic>;
+        final Map<String, dynamic> convertedData = _convertFromFirestoreDocument(responseData);
 
         _logger.fine('Document retrieved successfully', {
           'collection': collection,
@@ -281,17 +273,14 @@ class FirestoreClient {
       );
 
       if (response.statusCode == 200) {
-        final List<dynamic> responseData =
-            jsonDecode(response.body) as List<dynamic>;
+        final List<dynamic> responseData = jsonDecode(response.body) as List<dynamic>;
         final List<Map<String, dynamic>> documents = <Map<String, dynamic>>[];
 
         for (final dynamic item in responseData) {
           final Map<String, dynamic> itemMap = item as Map<String, dynamic>;
           if (itemMap.containsKey('document')) {
-            final Map<String, dynamic> document =
-                itemMap['document'] as Map<String, dynamic>;
-            final Map<String, dynamic> convertedData =
-                _convertFromFirestoreDocument(document);
+            final Map<String, dynamic> document = itemMap['document'] as Map<String, dynamic>;
+            final Map<String, dynamic> convertedData = _convertFromFirestoreDocument(document);
             documents.add(convertedData);
           }
         }
@@ -345,8 +334,7 @@ class FirestoreClient {
       await _ensureValidToken();
 
       final String url = '$_baseUrl/$collection/$documentId';
-      final Map<String, dynamic> firestoreDocument =
-          _convertToFirestoreDocument(data);
+      final Map<String, dynamic> firestoreDocument = _convertToFirestoreDocument(data);
 
       final http.Response response = await _httpClient.patch(
         Uri.parse(url),
@@ -358,10 +346,8 @@ class FirestoreClient {
       );
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> responseData =
-            jsonDecode(response.body) as Map<String, dynamic>;
-        final Map<String, dynamic> convertedData =
-            _convertFromFirestoreDocument(responseData);
+        final Map<String, dynamic> responseData = jsonDecode(response.body) as Map<String, dynamic>;
+        final Map<String, dynamic> convertedData = _convertFromFirestoreDocument(responseData);
 
         _logger.fine('Document updated successfully', {
           'collection': collection,
@@ -451,8 +437,7 @@ class FirestoreClient {
   ///
   /// Throws [ServiceException] if the operation fails.
   Future<bool> documentExists(String collection, String documentId) async {
-    final Map<String, dynamic>? document =
-        await getDocument(collection, documentId);
+    final Map<String, dynamic>? document = await getDocument(collection, documentId);
     return document != null;
   }
 
@@ -460,9 +445,7 @@ class FirestoreClient {
   ///
   /// If the current token is expired or doesn't exist, generates a new one using the service account credentials.
   Future<void> _ensureValidToken() async {
-    if (_accessToken == null ||
-        _tokenExpiration == null ||
-        DateTime.now().isAfter(_tokenExpiration!)) {
+    if (_accessToken == null || _tokenExpiration == null || DateTime.now().isAfter(_tokenExpiration!)) {
       await _generateAccessToken();
     }
   }
@@ -503,17 +486,14 @@ class FirestoreClient {
         headers: <String, String>{
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body:
-            'grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=$jwt',
+        body: 'grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=$jwt',
       );
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> tokenData =
-            jsonDecode(response.body) as Map<String, dynamic>;
+        final Map<String, dynamic> tokenData = jsonDecode(response.body) as Map<String, dynamic>;
         _accessToken = tokenData['access_token'] as String;
         final int expiresIn = tokenData['expires_in'] as int;
-        _tokenExpiration = DateTime.now()
-            .add(Duration(seconds: expiresIn - 60)); // 60 second buffer
+        _tokenExpiration = DateTime.now().add(Duration(seconds: expiresIn - 60)); // 60 second buffer
 
         _logger.fine('Access token generated successfully');
       } else {
@@ -565,11 +545,9 @@ class FirestoreClient {
 
     // Extract field values
     if (firestoreDoc.containsKey('fields')) {
-      final Map<String, dynamic> fields =
-          firestoreDoc['fields'] as Map<String, dynamic>;
+      final Map<String, dynamic> fields = firestoreDoc['fields'] as Map<String, dynamic>;
       for (final MapEntry<String, dynamic> entry in fields.entries) {
-        result[entry.key] =
-            _convertValueFromFirestore(entry.value as Map<String, dynamic>);
+        result[entry.key] = _convertValueFromFirestore(entry.value as Map<String, dynamic>);
       }
     }
 
@@ -591,9 +569,7 @@ class FirestoreClient {
     } else if (value is DateTime) {
       // Ensure the timestamp ends with 'Z' for UTC or has a timezone offset
       String timestamp = value.toIso8601String();
-      if (!timestamp.endsWith('Z') &&
-          !timestamp.contains('+') &&
-          !timestamp.contains('-', timestamp.length - 6)) {
+      if (!timestamp.endsWith('Z') && !timestamp.contains('+') && !timestamp.contains('-', timestamp.length - 6)) {
         timestamp = '${timestamp}Z';
       }
       return <String, dynamic>{'timestampValue': timestamp};
@@ -632,28 +608,23 @@ class FirestoreClient {
     } else if (firestoreValue.containsKey('timestampValue')) {
       return DateTime.parse(firestoreValue['timestampValue'] as String);
     } else if (firestoreValue.containsKey('arrayValue')) {
-      final Map<String, dynamic> arrayValue =
-          firestoreValue['arrayValue'] as Map<String, dynamic>;
+      final Map<String, dynamic> arrayValue = firestoreValue['arrayValue'] as Map<String, dynamic>;
       if (arrayValue.containsKey('values')) {
         final List<dynamic> values = arrayValue['values'] as List<dynamic>;
         return values
             .map(
-              (dynamic item) =>
-                  _convertValueFromFirestore(item as Map<String, dynamic>),
+              (dynamic item) => _convertValueFromFirestore(item as Map<String, dynamic>),
             )
             .toList();
       }
       return <dynamic>[];
     } else if (firestoreValue.containsKey('mapValue')) {
-      final Map<String, dynamic> mapValue =
-          firestoreValue['mapValue'] as Map<String, dynamic>;
+      final Map<String, dynamic> mapValue = firestoreValue['mapValue'] as Map<String, dynamic>;
       if (mapValue.containsKey('fields')) {
-        final Map<String, dynamic> fields =
-            mapValue['fields'] as Map<String, dynamic>;
+        final Map<String, dynamic> fields = mapValue['fields'] as Map<String, dynamic>;
         final Map<String, dynamic> result = <String, dynamic>{};
         for (final MapEntry<String, dynamic> entry in fields.entries) {
-          result[entry.key] =
-              _convertValueFromFirestore(entry.value as Map<String, dynamic>);
+          result[entry.key] = _convertValueFromFirestore(entry.value as Map<String, dynamic>);
         }
         return result;
       }

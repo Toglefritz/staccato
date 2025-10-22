@@ -164,8 +164,10 @@ void main() {
         expect(adultMembers, hasLength(2));
         expect(adultMembers.any((FamilyMemberSummary member) => member.id == 'user_primary'), isTrue);
         expect(adultMembers.any((FamilyMemberSummary member) => member.id == 'user_adult'), isTrue);
-        expect(adultMembers.any((FamilyMemberSummary member) => member.permissionLevel == UserPermissionLevel.child),
-            isFalse,);
+        expect(
+          adultMembers.any((FamilyMemberSummary member) => member.permissionLevel == UserPermissionLevel.child),
+          isFalse,
+        );
       });
 
       /// Tests the childMembers property.
@@ -178,8 +180,10 @@ void main() {
         expect(childMembers, hasLength(2));
         expect(childMembers.any((FamilyMemberSummary member) => member.id == 'user_child1'), isTrue);
         expect(childMembers.any((FamilyMemberSummary member) => member.id == 'user_child2'), isTrue);
-        expect(childMembers.every((FamilyMemberSummary member) => member.permissionLevel == UserPermissionLevel.child),
-            isTrue,);
+        expect(
+          childMembers.every((FamilyMemberSummary member) => member.permissionLevel == UserPermissionLevel.child),
+          isTrue,
+        );
       });
 
       /// Tests the primaryMember property.

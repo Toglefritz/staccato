@@ -82,7 +82,7 @@ class FirebaseAuthService {
       }
 
       final Map<String, dynamic> userData = users.first as Map<String, dynamic>;
-      
+
       return FirebaseUser.fromJson(userData);
     } on http.ClientException catch (e) {
       throw NetworkException('Failed to connect to Firebase Auth API: ${e.message}');

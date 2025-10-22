@@ -454,8 +454,8 @@ void main() {
     group('equality and hashCode', () {
       /// Tests that identical Family instances are considered equal.
       ///
-      /// This test verifies that the equality operator correctly identifies Family instances with identical field values
-      /// as equal.
+      /// This test verifies that the equality operator correctly identifies Family instances with identical field
+      /// values as equal.
       test('should consider Families with identical values as equal', () {
         final FamilySettings settings = FamilySettings.fromJson(validSettingsJson);
         final DateTime createdAt = DateTime.parse('2025-01-10T12:00:00.000Z');
@@ -485,8 +485,8 @@ void main() {
 
       /// Tests that Family instances with different values are not equal.
       ///
-      /// This test verifies that the equality operator correctly identifies Family instances with different field values
-      /// as not equal.
+      /// This test verifies that the equality operator correctly identifies Family instances with different field
+      /// values as not equal.
       test('should consider Families with different values as not equal', () {
         final Family family1 = validFamily;
         final Family family2 = validFamily.copyWith(name: 'Different Name');

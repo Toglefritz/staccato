@@ -11,8 +11,8 @@ void main() {
 
     /// Sample FamilyMemberSummary instance created from valid data.
     ///
-    /// This instance is used for testing methods that operate on existing FamilyMemberSummary objects, such as
-    /// copyWith and toJson.
+    /// This instance is used for testing methods that operate on existing FamilyMemberSummary objects, such as copyWith
+    /// and toJson.
     late FamilyMemberSummary validMember;
 
     /// Sample User instance for testing fromUser factory constructor.
@@ -370,8 +370,8 @@ void main() {
     group('toJson', () {
       /// Tests successful JSON serialization with all fields present.
       ///
-      /// This test verifies that the toJson method correctly converts a FamilyMemberSummary instance to a JSON map
-      /// with all fields properly formatted and typed.
+      /// This test verifies that the toJson method correctly converts a FamilyMemberSummary instance to a JSON map with
+      /// all fields properly formatted and typed.
       test('should convert FamilyMemberSummary to JSON with all fields', () {
         final Map<String, dynamic> json = validMember.toJson();
 
@@ -422,8 +422,8 @@ void main() {
 
       /// Tests round-trip serialization (toJson -> fromJson).
       ///
-      /// This test verifies that a FamilyMemberSummary instance can be serialized to JSON and then deserialized back
-      /// to an equivalent FamilyMemberSummary instance without data loss.
+      /// This test verifies that a FamilyMemberSummary instance can be serialized to JSON and then deserialized back to
+      /// an equivalent FamilyMemberSummary instance without data loss.
       test('should support round-trip serialization', () {
         final Map<String, dynamic> json = validMember.toJson();
         final FamilyMemberSummary deserializedMember = FamilyMemberSummary.fromJson(json);
@@ -486,8 +486,8 @@ void main() {
 
       /// Tests that copyWith preserves null values when not explicitly set.
       ///
-      /// This test verifies that the copyWith method correctly handles cases where optional fields are already null
-      /// and should remain null.
+      /// This test verifies that the copyWith method correctly handles cases where optional fields are already null and
+      /// should remain null.
       test('should preserve null values for optional fields', () {
         final FamilyMemberSummary memberWithNulls = FamilyMemberSummary(
           id: 'test_id',
@@ -563,8 +563,8 @@ void main() {
 
       /// Tests that a FamilyMemberSummary instance is equal to itself.
       ///
-      /// This test verifies the reflexive property of equality, ensuring that any FamilyMemberSummary instance is
-      /// equal to itself.
+      /// This test verifies the reflexive property of equality, ensuring that any FamilyMemberSummary instance is equal
+      /// to itself.
       test('should be equal to itself', () {
         expect(validMember, equals(validMember));
         expect(validMember.hashCode, equals(validMember.hashCode));

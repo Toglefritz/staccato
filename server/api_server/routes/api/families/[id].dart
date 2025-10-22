@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
@@ -44,36 +45,36 @@ Future<Response> onRequest(RequestContext context, String id) async {
 /// Response (200 OK) with members:
 /// ```json
 /// {
-///   "family": {
-///     "id": "family_123",
-///     "name": "The Smith Family",
-///     "primaryUserId": "user_456",
-///     "settings": { ... },
-///     "createdAt": "2025-01-10T14:30:00Z",
-///     "updatedAt": "2025-01-10T14:30:00Z"
-///   },
-///   "members": [
-///     {
-///       "id": "user_456",
-///       "displayName": "John Smith",
-///       "permissionLevel": "primary",
-///       "profileImageUrl": "https://..."
-///     }
-///   ],
-///   "memberCount": 1,
-///   "isAtMemberLimit": false
+/// "family": {
+/// "id": "family_123",
+/// "name": "The Smith Family",
+/// "primaryUserId": "user_456",
+/// "settings": { ... },
+/// "createdAt": "2025-01-10T14:30:00Z",
+/// "updatedAt": "2025-01-10T14:30:00Z"
+/// },
+/// "members": [
+/// {
+/// "id": "user_456",
+/// "displayName": "John Smith",
+/// "permissionLevel": "primary",
+/// "profileImageUrl": "https://..."
+/// }
+/// ],
+/// "memberCount": 1,
+/// "isAtMemberLimit": false
 /// }
 /// ```
 ///
 /// Response (200 OK) without members:
 /// ```json
 /// {
-///   "id": "family_123",
-///   "name": "The Smith Family",
-///   "primaryUserId": "user_456",
-///   "settings": { ... },
-///   "createdAt": "2025-01-10T14:30:00Z",
-///   "updatedAt": "2025-01-10T14:30:00Z"
+/// "id": "family_123",
+/// "name": "The Smith Family",
+/// "primaryUserId": "user_456",
+/// "settings": { ... },
+/// "createdAt": "2025-01-10T14:30:00Z",
+/// "updatedAt": "2025-01-10T14:30:00Z"
 /// }
 /// ```
 Future<Response> _getFamily(RequestContext context, String id) async {
@@ -110,7 +111,6 @@ Future<Response> _getFamily(RequestContext context, String id) async {
       }
 
       return Response.json(
-        statusCode: HttpStatus.ok,
         body: response.toJson(),
       );
     } else {
@@ -127,7 +127,6 @@ Future<Response> _getFamily(RequestContext context, String id) async {
       }
 
       return Response.json(
-        statusCode: HttpStatus.ok,
         body: family.toJson(),
       );
     }
@@ -169,23 +168,23 @@ Future<Response> _getFamily(RequestContext context, String id) async {
 /// Request Body:
 /// ```json
 /// {
-///   "name": "Updated Family Name",
-///   "settings": {
-///     "timezone": "America/Los_Angeles",
-///     "maxFamilyMembers": 15
-///   }
+/// "name": "Updated Family Name",
+/// "settings": {
+/// "timezone": "America/Los_Angeles",
+/// "maxFamilyMembers": 15
+/// }
 /// }
 /// ```
 ///
 /// Response (200 OK):
 /// ```json
 /// {
-///   "id": "family_123",
-///   "name": "Updated Family Name",
-///   "primaryUserId": "user_456",
-///   "settings": { ... },
-///   "createdAt": "2025-01-10T14:30:00Z",
-///   "updatedAt": "2025-01-10T15:45:00Z"
+/// "id": "family_123",
+/// "name": "Updated Family Name",
+/// "primaryUserId": "user_456",
+/// "settings": { ... },
+/// "createdAt": "2025-01-10T14:30:00Z",
+/// "updatedAt": "2025-01-10T15:45:00Z"
 /// }
 /// ```
 Future<Response> _updateFamily(RequestContext context, String id) async {
@@ -211,7 +210,6 @@ Future<Response> _updateFamily(RequestContext context, String id) async {
     final Family updatedFamily = await familyService.updateFamily(id, request);
 
     return Response.json(
-      statusCode: HttpStatus.ok,
       body: updatedFamily.toJson(),
     );
   } on ValidationException catch (e) {
@@ -272,7 +270,7 @@ Future<Response> _updateFamily(RequestContext context, String id) async {
 /// Response (403 Forbidden): When the requesting user is not the primary administrator.
 /// ```json
 /// {
-///   "error": "Only the primary administrator can delete the family"
+/// "error": "Only the primary administrator can delete the family"
 /// }
 /// ```
 Future<Response> _deleteFamily(RequestContext context, String id) async {
@@ -290,7 +288,7 @@ Future<Response> _deleteFamily(RequestContext context, String id) async {
     // Get required services
     final FamilyService familyService = context.read<FamilyService>();
 
-    // TODO: Extract user ID from authentication context
+    // TODO(Toglefritz): Extract user ID from authentication context
     // For now, using a placeholder - this should be replaced with actual auth
     const String requestingUserId = 'user_placeholder';
 

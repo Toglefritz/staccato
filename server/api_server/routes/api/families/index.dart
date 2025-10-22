@@ -34,23 +34,23 @@ Future<Response> onRequest(RequestContext context) async {
 /// Request Body:
 /// ```json
 /// {
-///   "name": "The Smith Family",
-///   "settings": {
-///     "timezone": "America/New_York",
-///     "maxFamilyMembers": 10
-///   }
+/// "name": "The Smith Family",
+/// "settings": {
+/// "timezone": "America/New_York",
+/// "maxFamilyMembers": 10
+/// }
 /// }
 /// ```
 ///
 /// Response (201 Created):
 /// ```json
 /// {
-///   "id": "family_123",
-///   "name": "The Smith Family",
-///   "primaryUserId": "user_456",
-///   "settings": { ... },
-///   "createdAt": "2025-01-10T14:30:00Z",
-///   "updatedAt": "2025-01-10T14:30:00Z"
+/// "id": "family_123",
+/// "name": "The Smith Family",
+/// "primaryUserId": "user_456",
+/// "settings": { ... },
+/// "createdAt": "2025-01-10T14:30:00Z",
+/// "updatedAt": "2025-01-10T14:30:00Z"
 /// }
 /// ```
 Future<Response> _createFamily(RequestContext context) async {
@@ -58,7 +58,7 @@ Future<Response> _createFamily(RequestContext context) async {
     // Get required services
     final FamilyService familyService = context.read<FamilyService>();
 
-    // TODO: Extract user ID from authentication context
+    // TODO(Toglefritz): Extract user ID from authentication context
     // For now, using a placeholder - this should be replaced with actual auth
     const String primaryUserId = 'user_placeholder';
 
@@ -120,14 +120,14 @@ Future<Response> _createFamily(RequestContext context) async {
 /// Response (200 OK):
 /// ```json
 /// [
-///   {
-///     "id": "family_123",
-///     "name": "The Smith Family",
-///     "primaryUserId": "user_456",
-///     "settings": { ... },
-///     "createdAt": "2025-01-10T14:30:00Z",
-///     "updatedAt": "2025-01-10T14:30:00Z"
-///   }
+/// {
+/// "id": "family_123",
+/// "name": "The Smith Family",
+/// "primaryUserId": "user_456",
+/// "settings": { ... },
+/// "createdAt": "2025-01-10T14:30:00Z",
+/// "updatedAt": "2025-01-10T14:30:00Z"
+/// }
 /// ]
 /// ```
 Future<Response> _getFamilies(RequestContext context) async {
@@ -135,7 +135,7 @@ Future<Response> _getFamilies(RequestContext context) async {
     // Get required services
     final FamilyService familyService = context.read<FamilyService>();
 
-    // TODO: Extract user ID from authentication context
+    // TODO(Toglefritz): Extract user ID from authentication context
     // For now, using a placeholder - this should be replaced with actual auth
     const String primaryUserId = 'user_placeholder';
 
@@ -177,7 +177,6 @@ Future<Response> _getFamilies(RequestContext context) async {
     final List<Map<String, dynamic>> familiesJson = families.map((Family family) => family.toJson()).toList();
 
     return Response.json(
-      statusCode: HttpStatus.ok,
       body: familiesJson,
     );
   } on ValidationException catch (e) {

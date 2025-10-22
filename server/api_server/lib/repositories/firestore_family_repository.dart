@@ -19,7 +19,7 @@ class FirestoreFamilyRepository implements FamilyRepository {
   /// Creates a new Firestore family repository with the specified client.
   ///
   /// Parameters:
-  /// * [firestoreClient] - Configured Firestore client for database operations
+  /// * `firestoreClient` - Configured Firestore client for database operations
   const FirestoreFamilyRepository(this._firestoreClient);
 
   /// Firestore client for database operations.
@@ -120,7 +120,7 @@ class FirestoreFamilyRepository implements FamilyRepository {
         offset: offset,
       );
 
-      final List<Family> families = documents.map((Map<String, dynamic> doc) => Family.fromJson(doc)).toList();
+      final List<Family> families = documents.map(Family.fromJson).toList();
 
       _logger.fine('Families found by primary user ID in Firestore', {
         'primaryUserId': primaryUserId,

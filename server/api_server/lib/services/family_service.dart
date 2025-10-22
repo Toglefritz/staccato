@@ -1,6 +1,4 @@
 import 'package:logging/logging.dart';
-import 'package:uuid/uuid.dart';
-
 import 'package:staccato_api_server/exceptions/service_exception.dart';
 import 'package:staccato_api_server/exceptions/validation_exception.dart';
 import 'package:staccato_api_server/models/family.dart';
@@ -11,12 +9,13 @@ import 'package:staccato_api_server/models/family_with_members_response.dart';
 import 'package:staccato_api_server/models/user.dart';
 import 'package:staccato_api_server/repositories/family_repository.dart';
 import 'package:staccato_api_server/repositories/user_repository.dart';
+import 'package:uuid/uuid.dart';
 
 /// Service for managing family operations and business logic.
 ///
-/// This service handles all family-related business logic including validation, family creation, member management,
-/// and coordination between different system components. It serves as the primary interface between the presentation
-/// layer and data persistence.
+/// This service handles all family-related business logic including validation, family creation, member management, and
+/// coordination between different system components. It serves as the primary interface between the presentation layer
+/// and data persistence.
 ///
 /// The service is stateless and uses dependency injection for repositories and external services.
 class FamilyService {
@@ -57,8 +56,8 @@ class FamilyService {
   ///
   /// Returns the created [Family] instance.
   ///
-  /// Throws [ValidationException] when the request data is invalid or incomplete.
-  /// Throws [ServiceException] when the creation operation fails.
+  /// Throws [ValidationException] when the request data is invalid or incomplete. Throws [ServiceException] when the
+  /// creation operation fails.
   Future<Family> createFamily(FamilyCreateRequest request, String primaryUserId) async {
     _logger.info('Creating new family', {
       'name': request.name,
@@ -133,8 +132,8 @@ class FamilyService {
   ///
   /// Returns a [FamilyWithMembersResponse] containing family and member data, or null if family not found.
   ///
-  /// Throws [ValidationException] if the family ID is invalid.
-  /// Throws [ServiceException] if the retrieval operation fails.
+  /// Throws [ValidationException] if the family ID is invalid. Throws [ServiceException] if the retrieval operation
+  /// fails.
   Future<FamilyWithMembersResponse?> getFamilyWithMembers(String familyId) async {
     _logger.fine('Retrieving family with members', {'familyId': familyId});
 
@@ -153,7 +152,7 @@ class FamilyService {
       final List<User> users = await _userRepository.findByFamilyId(familyId);
 
       // Convert users to member summaries
-      final List<FamilyMemberSummary> members = users.map((User user) => FamilyMemberSummary.fromUser(user)).toList();
+      final List<FamilyMemberSummary> members = users.map(FamilyMemberSummary.fromUser).toList();
 
       final FamilyWithMembersResponse response = FamilyWithMembersResponse(
         family: family,
@@ -180,8 +179,8 @@ class FamilyService {
   ///
   /// Returns a list of families administered by the specified user.
   ///
-  /// Throws [ValidationException] if the user ID is invalid.
-  /// Throws [ServiceException] if the retrieval operation fails.
+  /// Throws [ValidationException] if the user ID is invalid. Throws [ServiceException] if the retrieval operation
+  /// fails.
   Future<List<Family>> getFamiliesByPrimaryUserId(
     String primaryUserId, {
     int? limit,
@@ -214,8 +213,8 @@ class FamilyService {
   ///
   /// Returns the updated [Family] instance.
   ///
-  /// Throws [ValidationException] when the request data is invalid.
-  /// Throws [ServiceException] when the family doesn't exist or the update fails.
+  /// Throws [ValidationException] when the request data is invalid. Throws [ServiceException] when the family doesn't
+  /// exist or the update fails.
   Future<Family> updateFamily(String familyId, FamilyUpdateRequest request) async {
     _logger.info('Updating family', {
       'familyId': familyId,
@@ -267,8 +266,8 @@ class FamilyService {
   /// * [familyId] - The unique family identifier
   /// * [requestingUserId] - ID of the user requesting the deletion (must be primary administrator)
   ///
-  /// Throws [ValidationException] when the inputs are invalid.
-  /// Throws [ServiceException] when the family doesn't exist, user lacks permissions, or deletion fails.
+  /// Throws [ValidationException] when the inputs are invalid. Throws [ServiceException] when the family doesn't exist,
+  /// user lacks permissions, or deletion fails.
   Future<void> deleteFamily(String familyId, String requestingUserId) async {
     _logger.info('Deleting family', {
       'familyId': familyId,
@@ -331,7 +330,6 @@ class FamilyService {
     if (requestErrors.isNotEmpty) {
       throw ValidationException(
         'Family creation request validation failed: ${requestErrors.join(', ')}',
-        code: 'VALIDATION_FAILED',
       );
     }
 
@@ -358,7 +356,6 @@ class FamilyService {
     if (requestErrors.isNotEmpty) {
       throw ValidationException(
         'Family update request validation failed: ${requestErrors.join(', ')}',
-        code: 'VALIDATION_FAILED',
       );
     }
   }

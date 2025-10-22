@@ -5,8 +5,8 @@ import 'package:http/http.dart' as http;
 
 /// Manual test script for the Family API endpoints.
 ///
-/// This script tests the full family management API including creation, retrieval, updates, and deletion.
-/// Make sure to start the server first with: dart_frog dev
+/// This script tests the full family management API including creation, retrieval, updates, and deletion. Make sure to
+/// start the server first with: dart_frog dev
 ///
 /// Usage: dart run test/manual/test_family_api_manual.dart
 // ignore_for_file: avoid_print
@@ -60,7 +60,9 @@ Future<void> main() async {
       print('   ID: ${createdFamily['id']}');
       print('   Name: ${createdFamily['name']}');
       print('   Primary User: ${createdFamily['primaryUserId']}');
+      // ignore: avoid_dynamic_calls
       print('   Timezone: ${createdFamily['settings']['timezone']}');
+      // ignore: avoid_dynamic_calls
       print('   Max Members: ${createdFamily['settings']['maxFamilyMembers']}');
       print('   Created: ${createdFamily['createdAt']}');
     } else {
@@ -96,6 +98,7 @@ Future<void> main() async {
       print('✅ Second family created successfully!');
       print('   ID: ${createdFamily2['id']}');
       print('   Name: ${createdFamily2['name']}');
+      // ignore: avoid_dynamic_calls
       print('   Timezone: ${createdFamily2['settings']['timezone']}');
     } else {
       print('❌ Failed to create second family');
@@ -209,7 +212,9 @@ Future<void> main() async {
 
         print('✅ Family updated successfully!');
         print('   New Name: ${updatedFamily['name']}');
+        // ignore: avoid_dynamic_calls
         print('   New Timezone: ${updatedFamily['settings']['timezone']}');
+        // ignore: avoid_dynamic_calls
         print('   New Max Members: ${updatedFamily['settings']['maxFamilyMembers']}');
         print('   Updated At: ${updatedFamily['updatedAt']}');
       } else {

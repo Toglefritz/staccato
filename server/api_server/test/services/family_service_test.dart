@@ -1,6 +1,4 @@
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
-
 import 'package:staccato_api_server/exceptions/service_exception.dart';
 import 'package:staccato_api_server/exceptions/validation_exception.dart';
 import 'package:staccato_api_server/models/family.dart';
@@ -10,6 +8,7 @@ import 'package:staccato_api_server/models/user.dart';
 import 'package:staccato_api_server/repositories/family_repository.dart';
 import 'package:staccato_api_server/repositories/user_repository.dart';
 import 'package:staccato_api_server/services/family_service.dart';
+import 'package:test/test.dart';
 
 /// Mock implementations for testing.
 class MockFamilyRepository extends Mock implements FamilyRepository {}

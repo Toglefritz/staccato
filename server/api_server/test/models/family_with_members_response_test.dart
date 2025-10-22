@@ -184,8 +184,8 @@ void main() {
 
       /// Tests the primaryMember property.
       ///
-      /// This test verifies that the primaryMember getter correctly identifies and returns the primary administrator
-      /// of the family.
+      /// This test verifies that the primaryMember getter correctly identifies and returns the primary administrator of
+      /// the family.
       test('should return correct primary member', () {
         final FamilyMemberSummary? primaryMember = validResponse.primaryMember;
 
@@ -615,8 +615,8 @@ void main() {
 
       /// Tests that a FamilyWithMembersResponse instance is equal to itself.
       ///
-      /// This test verifies the reflexive property of equality, ensuring that any FamilyWithMembersResponse instance
-      /// is equal to itself.
+      /// This test verifies the reflexive property of equality, ensuring that any FamilyWithMembersResponse instance is
+      /// equal to itself.
       test('should be equal to itself', () {
         expect(validResponse, equals(validResponse));
         expect(validResponse.hashCode, equals(validResponse.hashCode));

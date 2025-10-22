@@ -6,8 +6,8 @@ void main() {
   group('FamilyInvitation', () {
     /// Sample valid family invitation data for testing successful operations.
     ///
-    /// This data represents a typical invitation with all required fields and some optional fields populated. Used as
-    /// a baseline for most tests.
+    /// This data represents a typical invitation with all required fields and some optional fields populated. Used as a
+    /// baseline for most tests.
     late Map<String, dynamic> validInvitationJson;
 
     /// Sample FamilyInvitation instance created from valid data.
@@ -601,8 +601,8 @@ void main() {
 
       /// Tests round-trip serialization (toJson -> fromJson).
       ///
-      /// This test verifies that a FamilyInvitation instance can be serialized to JSON and then deserialized back to
-      /// an equivalent FamilyInvitation instance without data loss.
+      /// This test verifies that a FamilyInvitation instance can be serialized to JSON and then deserialized back to an
+      /// equivalent FamilyInvitation instance without data loss.
       test('should support round-trip serialization', () {
         final Map<String, dynamic> json = validInvitation.toJson();
         final FamilyInvitation deserializedInvitation = FamilyInvitation.fromJson(json);

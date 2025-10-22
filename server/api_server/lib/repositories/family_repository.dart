@@ -17,8 +17,8 @@ abstract interface class FamilyRepository {
   ///
   /// Returns the created family with any generated fields populated.
   ///
-  /// Throws [ConflictException] if a family with the same ID already exists.
-  /// Throws [ServiceException] if the creation operation fails.
+  /// Throws [ConflictException] if a family with the same ID already exists. Throws [ServiceException] if the creation
+  /// operation fails.
   Future<Family> create(Family family);
 
   /// Retrieves a family by its unique identifier.

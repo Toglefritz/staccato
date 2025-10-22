@@ -259,8 +259,8 @@ void main() {
     group('toJson', () {
       /// Tests successful JSON serialization with all fields present.
       ///
-      /// This test verifies that the toJson method correctly converts a FamilyCreateRequest instance to a JSON map
-      /// with all fields properly formatted and typed.
+      /// This test verifies that the toJson method correctly converts a FamilyCreateRequest instance to a JSON map with
+      /// all fields properly formatted and typed.
       test('should convert FamilyCreateRequest to JSON with all fields', () {
         final Map<String, dynamic> json = validRequest.toJson();
 
@@ -306,8 +306,8 @@ void main() {
 
       /// Tests round-trip serialization (toJson -> fromJson).
       ///
-      /// This test verifies that a FamilyCreateRequest instance can be serialized to JSON and then deserialized back
-      /// to an equivalent FamilyCreateRequest instance without data loss.
+      /// This test verifies that a FamilyCreateRequest instance can be serialized to JSON and then deserialized back to
+      /// an equivalent FamilyCreateRequest instance without data loss.
       test('should support round-trip serialization', () {
         final Map<String, dynamic> json = validRequest.toJson();
         final FamilyCreateRequest deserializedRequest = FamilyCreateRequest.fromJson(json);
@@ -468,8 +468,8 @@ void main() {
 
       /// Tests that a FamilyCreateRequest instance is equal to itself.
       ///
-      /// This test verifies the reflexive property of equality, ensuring that any FamilyCreateRequest instance is
-      /// equal to itself.
+      /// This test verifies the reflexive property of equality, ensuring that any FamilyCreateRequest instance is equal
+      /// to itself.
       test('should be equal to itself', () {
         expect(validRequest, equals(validRequest));
         expect(validRequest.hashCode, equals(validRequest.hashCode));

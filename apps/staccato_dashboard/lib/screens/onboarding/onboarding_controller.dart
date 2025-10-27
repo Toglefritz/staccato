@@ -4,8 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../services/authentication/authentication_service.dart';
 import '../../services/authentication/exceptions/firebase_auth_creation_exception.dart';
-import '../../services/authentication/exceptions/user_document_creation_exception.dart';
+import '../../services/authentication/exceptions/user_document_creation_exception.dart'
+    as auth_exceptions;
 import '../../services/authentication/models/auth_methods.dart';
+import '../../services/user_management/user_management.dart';
 import 'onboarding_route.dart';
 import 'onboarding_view.dart';
 
@@ -70,6 +72,11 @@ class OnboardingController extends State<OnboardingRoute>
           method: AuthMethod.basicAuth,
           emailAddress: _emailController.text.trim(),
           password: _passwordController.text,
+          displayName: _nameController.text.trim(),
+          familyId:
+              'temp_family_${DateTime.now().millisecondsSinceEpoch}', // Temporary family ID
+          permissionLevel:
+              UserPermissionLevel.primary, // First user is typically primary
         );
 
         if (mounted) {
@@ -91,7 +98,7 @@ class OnboardingController extends State<OnboardingRoute>
             ),
           );
         }
-      } on UserDocumentCreationException {
+      } on auth_exceptions.UserDocumentCreationException {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -204,7 +211,16 @@ class OnboardingController extends State<OnboardingRoute>
   /// Handles Google sign-up specifically.
   Future<void> handleGoogleSignUp() async {
     try {
-      await AuthenticationService.createUser(method: AuthMethod.google);
+      await AuthenticationService.createUser(
+        method: AuthMethod.google,
+        displayName: _nameController.text.trim().isNotEmpty
+            ? _nameController.text.trim()
+            : 'New User', // Fallback if name field is empty
+        familyId:
+            'temp_family_${DateTime.now().millisecondsSinceEpoch}', // Temporary family ID
+        permissionLevel:
+            UserPermissionLevel.primary, // First user is typically primary
+      );
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -225,7 +241,7 @@ class OnboardingController extends State<OnboardingRoute>
           ),
         );
       }
-    } on UserDocumentCreationException {
+    } on auth_exceptions.UserDocumentCreationException {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

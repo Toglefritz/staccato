@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 /// A gradient that slowly shifts colors over time.
@@ -23,10 +21,13 @@ class _ShiftingGradientState extends State<ShiftingGradient>
   late final AnimationController animationController;
 
   /// The first color animation for the background gradient.
-  late final Animation<Color?> colorAnimation1;
+  Animation<Color?>? colorAnimation1;
 
   /// The second color animation for the background gradient.
-  late final Animation<Color?> colorAnimation2;
+  Animation<Color?>? colorAnimation2;
+
+  /// Whether the animations have been initialized.
+  bool _isInitialized = false;
 
   /// Initializes the state for the idle screen.
   @override
@@ -34,18 +35,16 @@ class _ShiftingGradientState extends State<ShiftingGradient>
     super.initState();
 
     // Initialize the background gradient animation.
-    unawaited(_initializeAnimation());
+    _initializeAnimation();
   }
 
   /// Initializes the background gradient animation.
-  Future<void> _initializeAnimation() async {
+  void _initializeAnimation() {
     // Long-running controller that continuously loops.
     animationController = AnimationController(
       duration: const Duration(minutes: 3), // Slow, gentle shift
       vsync: this,
     );
-
-    await animationController.repeat();
 
     // Color palette to travel through (loops back to the start).
     final List<Color> palette = <Color>[
@@ -89,17 +88,37 @@ class _ShiftingGradientState extends State<ShiftingGradient>
 
     colorAnimation1 = sequence1.animate(animationController);
     colorAnimation2 = sequence2.animate(animationController);
+
+    // Mark as initialized and start the animation
+    setState(() {
+      _isInitialized = true;
+    });
+
+    animationController.repeat();
   }
 
   @override
   Widget build(BuildContext context) {
+    // Show a static gradient while animations are initializing
+    if (!_isInitialized || colorAnimation1 == null || colorAnimation2 == null) {
+      return Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.purple.shade800, Colors.indigo.shade700],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+      );
+    }
+
     return AnimatedBuilder(
       animation: animationController,
       builder: (BuildContext context, _) {
         return Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [colorAnimation1.value!, colorAnimation2.value!],
+              colors: [colorAnimation1!.value!, colorAnimation2!.value!],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),

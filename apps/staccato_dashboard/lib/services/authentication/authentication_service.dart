@@ -1,11 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:http/http.dart';
 
-import '../firebase/dev_machine_ip.dart';
+import '../user_management/user_management.dart';
 import 'exceptions/firebase_auth_creation_exception.dart';
-import 'exceptions/user_document_creation_exception.dart';
+import 'exceptions/user_document_creation_exception.dart' as auth_exceptions;
 import 'models/auth_methods.dart';
 
 /// A service class that handles authentication tasks with Firebase Auth.
@@ -19,15 +18,9 @@ class AuthenticationService {
   /// Creates an instance of the [AuthenticationService] class with the specified [user].
   AuthenticationService({required this.user});
 
-  /// The host for the Firebase Functions base URL.
-  static final String _cloudFunctionsHost = kDebugMode
-      ? devMachineIP
-      : ''; // TODO(Toglefritz): update prod host
-
-  /// The base URL for all endpoints used by this service.
-  static String baseUrl = kDebugMode
-      ? 'http://$_cloudFunctionsHost:5001/brine-3b212/us-central1'
-      : ''; // TODO(Toglefritz): update prod endpoint
+  /// User management service for handling user document operations.
+  static final UserManagementService _userManagementService =
+      UserManagementService();
 
   /// Creates a password-based account with Firebase Auth.
   ///
@@ -58,11 +51,27 @@ class AuthenticationService {
 
   /// Creates a new user via Firebase Authentication and creates a user document.
   ///
+  /// This method handles the complete user creation workflow including Firebase Auth account creation and user
+  /// document creation in the backend system.
+  ///
+  /// Parameters:
+  /// * [method] - Authentication method to use (basic auth, Google, Apple)
+  /// * [emailAddress] - Email address for basic auth (required for basic auth)
+  /// * [password] - Password for basic auth (required for basic auth)
+  /// * [displayName] - Display name for the user (required)
+  /// * [familyId] - ID of the family this user will belong to (required)
+  /// * [permissionLevel] - Permission level for the user (required)
+  /// * [profileImageUrl] - Optional URL to the user's profile image
+  ///
   /// Throws a distinct exception if Firebase Auth user creation or user document creation fails.
   static Future<void> createUser({
     required AuthMethod method,
+    required String displayName,
+    required String familyId,
+    required UserPermissionLevel permissionLevel,
     String? emailAddress,
     String? password,
+    String? profileImageUrl,
   }) async {
     User? user;
 
@@ -91,43 +100,20 @@ class AuthenticationService {
     // If the user is successfully authenticated, create a Firestore user document.
     if (user != null) {
       try {
-        await _createUserDocument(user);
+        final UserCreateRequest request = UserCreateRequest(
+          displayName: displayName,
+          familyId: familyId,
+          permissionLevel: permissionLevel,
+          profileImageUrl: profileImageUrl,
+        );
+
+        await _userManagementService.createUserDocument(request);
       } catch (e) {
         debugPrint('Failed to create Firestore user document: $e');
-        throw UserDocumentCreationException();
+        throw auth_exceptions.UserDocumentCreationException();
       }
 
       debugPrint('Authenticated with UID, ${user.uid}');
-    }
-  }
-
-  /// Creates a Firestore user document for the authenticated user via backend endpoint.
-  static Future<void> _createUserDocument(User user) async {
-    final String? idToken = await user.getIdToken();
-
-    // Ensure the user is authenticated and has an ID token
-    if (idToken == null) {
-      throw Exception('Missing ID token for authenticated user.');
-    }
-
-    // Define the backend endpoint URL for creating a user document
-    const String endpoint = '/createUserDocument';
-    final Uri url = Uri.parse(baseUrl + endpoint);
-
-    // Make an authenticated HTTP POST request to create the user document
-    final Response response = await post(
-      url,
-      headers: {
-        'Authorization': 'Bearer $idToken',
-        'Content-Type': 'application/json',
-      },
-    );
-
-    // Check the response status code
-    if (response.statusCode != 200) {
-      throw Exception(
-        'Failed to create user document: ${response.reasonPhrase}',
-      );
     }
   }
 
@@ -241,40 +227,20 @@ class AuthenticationService {
   }
 
   /// Deletes the user's document in the "users" collection of the Firestore database.
+  ///
+  /// This method delegates to the UserManagementService to handle the deletion of the user document from the backend
+  /// system.
+  ///
+  /// Throws [UserDocumentDeletionException] if the deletion fails.
   Future<void> deleteUserDocument() async {
     try {
-      // Get the authenticated user's Firebase ID token
-      final String? idToken = await FirebaseAuth.instance.currentUser
-          ?.getIdToken();
-
-      if (idToken == null) {
-        throw Exception(
-          'User is not authenticated. Cannot delete user document.',
-        );
-      }
-
-      // Define the backend endpoint URL
-      const String endpoint = '/deleteUser';
-
-      // Make an authenticated HTTP DELETE request
-      final Response response = await delete(
-        Uri.parse(baseUrl + endpoint),
-        headers: {
-          'Authorization': 'Bearer $idToken',
-          'Content-Type': 'application/json',
-        },
-      );
-
-      // Check the response status code
-      if (response.statusCode == 200) {
-        debugPrint('Successfully deleted user document for UID: ${user.uid}');
-      } else {
-        throw Exception(
-          'Failed to delete user document: ${response.reasonPhrase}',
-        );
-      }
+      await _userManagementService.deleteCurrentUserDocument();
+      debugPrint('Successfully deleted user document for UID: ${user.uid}');
+    } on UserServiceException catch (e) {
+      debugPrint('Error deleting user document: ${e.message}');
+      throw Exception('Error deleting user document: ${e.message}');
     } catch (e) {
-      debugPrint('Error deleting user document: $e');
+      debugPrint('Unexpected error deleting user document: $e');
       throw Exception('Error deleting user document: $e');
     }
   }
